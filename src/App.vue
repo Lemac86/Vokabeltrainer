@@ -8,6 +8,8 @@
 </template>
 
 <style scoped>
+:root {
+}
 .logo {
   height: 6em;
   padding: 1.5em;
