@@ -1,3 +1,3 @@
 <template>
-  <p>Training</p>
+  <p>Statistik</p>
 </template>

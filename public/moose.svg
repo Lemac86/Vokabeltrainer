@@ -1,4 +1,4 @@
-<template>
+<?xml version="1.0" encoding="UTF-8"?>
   <svg
     width="585"
     height="613.75"
@@ -2116,10 +2116,6 @@
       />
     </g>
   </svg>
-</template>
 
-<style>
-svg {
-  height: 100%;
-}
-</style>
+
+
