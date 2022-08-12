@@ -28,6 +28,7 @@ import Statistik from "./components/Statistik.vue";
 <style lang="scss">
 :root {
   --colorBlue: #2b25d3;
+  --colorYellow: #deff08;
 }
 
 #app {
@@ -43,7 +44,7 @@ body {
     var(--colorBlue),
     var(--colorBlue),
     var(--colorBlue),
-    #deff08
+    var(--colorYellow)
   );
 }
 </style>

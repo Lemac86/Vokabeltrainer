@@ -44,7 +44,7 @@ h1 {
   margin: 0;
   height: 50%;
   width: 100%;
-  color: #deff08;
+  color: var(--colorYellow);
   text-shadow: -0.5px 0 black, 0 0.5px black, 1px 0 black, 0 -0.5px black,
     1.5px 1px 2px black;
   font-size: min(8vw, 80px);
@@ -66,22 +66,23 @@ header {
 
 .button {
   font-family: "Cinzel Decorative", cursive;
-  background-color: #deff08;
+  background-color: var(--colorYellow);
   color: var(--colorBlue);
-  border: 1px solid black;
-  box-shadow: 1.2px 1px 1px black;
+  border: 0.1px solid var(--colorBlue);
   border-radius: 10px 10px 40px 40px;
   width: 80%;
   height: 5vh;
   margin: 5px 10%;
   font-size: 3vh;
   cursor: pointer;
-  transition: margin-left 500ms, color 500ms, background-color 500ms;
+  transition: margin-left 500ms, color 500ms, background-color 500ms,
+    transform 100ms;
 
   &:hover,
   &:focus {
+    border-color: var(--colorYellow);
     background-color: var(--colorBlue);
-    color: #deff08;
+    color: var(--colorYellow);
     margin-left: 8%;
   }
 }
