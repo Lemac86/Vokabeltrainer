@@ -1,22 +1,24 @@
 <template>
   <header>
-    <div class="headDiv">
-      <h1>Vokabeltrainer</h1>
-      <div class="mooseDiv"><img src="/moose.png" alt="Moose" /></div>
-    </div>
+    <h1>Vokabeltrainer</h1>
+    <div class="mooseDiv"><img src="/moose.png" alt="Moose" /></div>
   </header>
   <nav></nav>
   <main>
-    <button class="button">Training</button>
-    <button class="button">Test</button>
-    <button class="button">Vokabelliste</button>
-    <button class="button">Statistik</button>
+    <button class="button" @click="changeRoute('trainingStart')">
+      Training
+    </button>
+    <button class="button" @click="changeRoute('test')">Test</button>
+    <button class="button" @click="changeRoute('vokabellisteSuche')">
+      Vokabelliste
+    </button>
+    <button class="button" @click="changeRoute('statistik')">Statistik</button>
   </main>
   <footer></footer>
 </template>
 
 <script setup lang="ts">
-// import Moose from "./components/moose.png";
+import { changeRoute } from "../router";
 </script>
 
 <style lang="scss">
@@ -26,7 +28,9 @@ main {
 
 img {
   //   width: 100%;
-  height: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  aspect-ratio: 1/1;
 }
 
 h1 {
@@ -38,7 +42,7 @@ h1 {
   font-weight: 400;
   padding: 0;
   margin: 0;
-  height: 60%;
+  height: 50%;
   width: 100%;
   color: #deff08;
   text-shadow: -0.5px 0 black, 0 0.5px black, 1px 0 black, 0 -0.5px black,
@@ -48,19 +52,15 @@ h1 {
 
 .mooseDiv {
   display: flex;
-  height: 40%;
+  height: 50%;
   width: 100%;
   margin: auto;
   align-items: center;
   justify-content: center;
 }
 
-.headDiv {
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  width: 100%;
-  height: 100%;
+header {
+  height: 45vh;
   padding: 0;
 }
 
@@ -76,7 +76,7 @@ h1 {
   margin: 5px 10%;
   font-size: 3vh;
   cursor: pointer;
-  transition: margin-left 300ms, color 300ms, background-color 300ms;
+  transition: margin-left 500ms, color 500ms, background-color 500ms;
 
   &:hover,
   &:focus {
@@ -84,11 +84,5 @@ h1 {
     color: #deff08;
     margin-left: 8%;
   }
-}
-
-header {
-  height: 45vh;
-  display: flex;
-  align-items: center;
 }
 </style>
