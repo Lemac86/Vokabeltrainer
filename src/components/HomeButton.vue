@@ -1,5 +1,5 @@
 <template>
-  <button class="backHomeButtonCSS" @click="changeRoute('home')">
+  <button class="backHomeButtonCSS" @mousedown="changeRoute('home')">
     <img src="/moose.png" alt="Moose" />
   </button>
 </template>
@@ -11,13 +11,15 @@ import { changeRoute, state } from "../router";
 <style lang="scss">
 .backHomeButtonCSS {
   background-color: var(--colorBlue);
-  height: 8vh;
-  border: 1px double var(--colorBlue);
-  border-radius: 25% 25%;
-  //   transition: border 50ms;
+  width: 45px;
+  aspect-ratio: 1/1;
+  position: relative;
+  left: calc(100vw - 65px);
+  border: none;
+  transition: 500ms;
 
   &:focus {
-    border-color: var(--colorYellow);
+    left: 0px;
   }
 }
 </style>

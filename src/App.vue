@@ -3,6 +3,7 @@
   <HomeScreen v-if="state.route === 'home'"></HomeScreen>
   <Training v-if="state.route === 'training'"></Training>
   <TrainingStart v-if="state.route === 'trainingStart'"></TrainingStart>
+  <Test v-if="state.route === 'test'"></Test>
   <VokabellisteHinzufügen
     v-if="state.route === 'vokabellisteHinzufügen'"
   ></VokabellisteHinzufügen>
@@ -19,6 +20,7 @@ import { state, changeRoute } from "./router";
 import HomeButton from "./components/HomeButton.vue";
 import HomeScreen from "./components/HomeScreen.vue";
 import Training from "./components/Training.vue";
+import Test from "./components/Test.vue";
 import TrainingStart from "./components/TrainingStart.vue";
 import VokabellisteHinzufügen from "./components/VokabellisteHinzufügen.vue";
 import VokabellisteSuche from "./components/VokabellisteSuche.vue";

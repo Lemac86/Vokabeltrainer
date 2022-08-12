@@ -1,7 +1,3 @@
 <template>
-  <p>Statistik</p>
+  <h1 class="nonHomeH1">Statistik</h1>
 </template>
-
-<script lang="ts" setup>
-import HomeButton from "./HomeButton.vue";
-</script>

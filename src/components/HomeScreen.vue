@@ -1,6 +1,6 @@
 <template>
   <header>
-    <h1>Vokabeltrainer</h1>
+    <h1 class="homeH1">Vokabeltrainer</h1>
     <div class="mooseDiv"><img src="/moose.png" alt="Moose" /></div>
   </header>
   <nav></nav>
@@ -27,13 +27,29 @@ main {
 }
 
 img {
-  //   width: 100%;
   max-height: 100%;
   object-fit: contain;
   aspect-ratio: 1/1;
 }
 
-h1 {
+.nonHomeH1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Cinzel Decorative", cursive;
+  font-weight: 400;
+  padding: 0;
+  margin-top: 1vh;
+  height: 50%;
+  width: 100%;
+  color: var(--colorYellow);
+  text-shadow: -0.5px 0 black, 0 0.5px black, 1px 0 black, 0 -0.5px black,
+    1.5px 1px 2px black;
+  font-size: min(8vw, 80px);
+}
+
+.homeH1 {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -83,7 +99,7 @@ header {
     border-color: var(--colorYellow);
     background-color: var(--colorBlue);
     color: var(--colorYellow);
-    margin-left: 8%;
+    margin-left: 7%;
   }
 }
 </style>
