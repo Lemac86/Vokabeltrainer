@@ -10,7 +10,7 @@ import { changeRoute, state } from "../router";
 
 <style lang="scss">
 .backHomeButtonCSS {
-  background-color: var(--colorBlue);
+  background-color: transparent;
   width: 45px;
   aspect-ratio: 1/1;
   position: relative;

@@ -42,11 +42,10 @@ body {
   height: 100vh;
   background-repeat: no-repeat;
   background-image: linear-gradient(
-    to bottom,
-    var(--colorBlue),
-    var(--colorBlue),
-    var(--colorBlue),
-    var(--colorYellow)
-  );
+      to left,
+      transparent 83%,
+      var(--colorYellow) 17%
+    ),
+    linear-gradient(to bottom, var(--colorBlue) 93%, var(--colorYellow) 7%);
 }
 </style>
