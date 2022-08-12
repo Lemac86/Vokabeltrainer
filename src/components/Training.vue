@@ -1,3 +1,3 @@
 <template>
-  <h1 class="nonHomeH1">Training</h1>
+  <h1 class="notHomeH1">Training</h1>
 </template>

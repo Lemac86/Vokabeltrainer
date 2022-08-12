@@ -1,6 +1,6 @@
 <template>
   <button class="backHomeButtonCSS" @mousedown="changeRoute('home')">
-    <img src="/moose.png" alt="Moose" />
+    <img src="/moose.png" alt="Moose" class="mooseImg" />
   </button>
 </template>
 
@@ -17,6 +17,7 @@ import { changeRoute, state } from "../router";
   left: calc(100vw - 65px);
   border: none;
   transition: 500ms;
+  cursor: pointer;
 
   &:focus {
     left: 0px;

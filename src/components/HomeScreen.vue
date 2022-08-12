@@ -1,7 +1,9 @@
 <template>
   <header>
     <h1 class="homeH1">Vokabeltrainer</h1>
-    <div class="mooseDiv"><img src="/moose.png" alt="Moose" /></div>
+    <div class="mooseDiv">
+      <img src="/moose.png" alt="Moose" class="mooseImg" />
+    </div>
   </header>
   <nav></nav>
   <main>
@@ -26,13 +28,13 @@ main {
   margin-top: 15vh;
 }
 
-img {
+.mooseImg {
   max-height: 100%;
   object-fit: contain;
   aspect-ratio: 1/1;
 }
 
-.nonHomeH1 {
+.notHomeH1 {
   display: flex;
   align-items: center;
   justify-content: center;

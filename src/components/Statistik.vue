@@ -1,3 +1,3 @@
 <template>
-  <h1 class="nonHomeH1">Statistik</h1>
+  <h1 class="notHomeH1">Statistik</h1>
 </template>

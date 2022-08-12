@@ -43,9 +43,9 @@ body {
   background-repeat: no-repeat;
   background-image: linear-gradient(
       to left,
-      transparent 83%,
-      var(--colorYellow) 17%
+      transparent 95vw,
+      var(--colorYellow) 5vw
     ),
-    linear-gradient(to bottom, var(--colorBlue) 93%, var(--colorYellow) 7%);
+    linear-gradient(to bottom, var(--colorBlue) 95vh, var(--colorYellow) 5vh);
 }
 </style>

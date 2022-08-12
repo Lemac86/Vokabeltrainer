@@ -1,3 +1,3 @@
 <template>
-  <h1 class="nonHomeH1">Vokabelliste</h1>
+  <h1 class="notHomeH1">Vokabelliste</h1>
 </template>
