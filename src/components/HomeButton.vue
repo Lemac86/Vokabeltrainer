@@ -8,7 +8,7 @@
 import { changeRoute, state } from "../router";
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .backHomeButtonCSS {
   background-color: transparent;
   width: 45px;

@@ -9,13 +9,15 @@
       <img src="/sweden.png" alt="sweden" class="flags" />
     </button>
   </div>
+  <div class="startButtonDiv"><button class="startButton">Start</button></div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .languageSelect {
+  margin-top: 15vh;
   margin-left: 5vw;
-  margin-top: 20vh;
   font-size: medium;
+  font-weight: 200;
   color: var(--colorYellow);
   font-family: "Cinzel Decorative", cursive;
   text-shadow: -0.5px 0 black, 0 0.5px black, 1px 0 black, 0 -0.5px black,
@@ -47,5 +49,37 @@
   &:focus {
     transform: scale(135%);
   }
+}
+
+.startButton {
+  background-color: var(--colorYellow);
+  color: var(--colorBlue);
+  font-family: "Cinzel Decorative", cursive;
+  border: 2px solid black;
+  border-radius: 40px 40px 40px 40px;
+  height: 10vh;
+  padding: 0 10px;
+  font-size: 5vh;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 25ms, color 500ms, background-color 500ms,
+    border-color 500ms;
+  &:hover {
+    background-color: var(--colorBlue);
+    color: var(--colorYellow);
+    border-color: var(--colorYellow);
+  }
+  &:active {
+    background-color: var(--colorBlue);
+    color: var(--colorYellow);
+    transform: translateY(4px);
+    border-color: var(--colorYellow);
+  }
+}
+
+.startButtonDiv {
+  display: flex;
+  justify-content: center;
+  margin-top: 20vh;
 }
 </style>

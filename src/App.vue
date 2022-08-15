@@ -48,4 +48,44 @@ body {
     ),
     linear-gradient(to bottom, var(--colorBlue) 95vh, var(--colorYellow) 5vh);
 }
+
+.notHomeH1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Cinzel Decorative", cursive;
+  font-weight: 400;
+  padding: 0;
+  margin-top: 1vh;
+  height: 50%;
+  width: 100%;
+  color: var(--colorYellow);
+  text-shadow: -0.5px 0 black, 0 0.5px black, 1px 0 black, 0 -0.5px black,
+    1.5px 1px 2px black;
+  font-size: min(8vw, 80px);
+}
+
+.homeH1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Cinzel Decorative", cursive;
+  font-weight: 400;
+  padding: 0;
+  margin: 0;
+  height: 50%;
+  width: 100%;
+  color: var(--colorYellow);
+  text-shadow: -0.5px 0 black, 0 0.5px black, 1px 0 black, 0 -0.5px black,
+    1.5px 1px 2px black;
+  font-size: min(8vw, 80px);
+}
+
+.mooseImg {
+  max-height: 100%;
+  object-fit: contain;
+  aspect-ratio: 1/1;
+}
 </style>
