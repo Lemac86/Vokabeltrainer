@@ -35,6 +35,7 @@ import Statistik from "./components/Statistik.vue";
 
 #app {
   padding: 10px;
+  height: calc(100% - 20px);
 }
 
 body {
@@ -57,8 +58,8 @@ body {
   font-family: "Cinzel Decorative", cursive;
   font-weight: 400;
   padding: 0;
-  margin-top: 1vh;
-  height: 50%;
+  margin: 0;
+  height: 22.5%;
   width: 100%;
   color: var(--colorYellow);
   text-shadow: -0.5px 0 black, 0 0.5px black, 1px 0 black, 0 -0.5px black,

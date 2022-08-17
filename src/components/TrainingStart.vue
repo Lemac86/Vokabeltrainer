@@ -1,6 +1,6 @@
 <template>
   <h1 class="notHomeH1">Training</h1>
-  <h3 class="languageSelect">Choose a language:</h3>
+  <h3 class="languageSelect">Wähle eine Sprache:</h3>
   <div class="flagsSpan">
     <button class="flagsButtons">
       <img src="/germany.png" alt="germany" class="flags" />
@@ -14,9 +14,9 @@
 
 <style lang="scss" scoped>
 .languageSelect {
-  margin-top: 15vh;
-  margin-left: 5vw;
-  font-size: medium;
+  margin-top: 5vh;
+  margin-left: 16vw;
+  font-size: small;
   font-weight: 200;
   color: var(--colorYellow);
   font-family: "Cinzel Decorative", cursive;
@@ -80,6 +80,6 @@
 .startButtonDiv {
   display: flex;
   justify-content: center;
-  margin-top: 20vh;
+  margin-top: 15vh;
 }
 </style>
