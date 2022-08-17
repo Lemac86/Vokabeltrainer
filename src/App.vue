@@ -34,8 +34,11 @@ import Statistik from "./components/Statistik.vue";
 }
 
 #app {
-  padding: 10px;
-  height: calc(100% - 20px);
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-left: 5vw;
+  padding-bottom: 5vh;
+  height: calc(100% - 10px - 5vh);
 }
 
 body {

@@ -32,7 +32,7 @@
 .addVokabularyDiv {
   font-family: "Cinzel Decorative", cursive;
   color: var(--colorYellow);
-  margin-left: 10%;
+  margin-left: 20px;
   padding-bottom: 20px;
   font-size: min(4vw, 40px);
 }
@@ -40,15 +40,15 @@
 .textInputDiv {
   position: relative;
   display: block;
-  width: calc(70vw + 100px);
+  width: calc(100% - 15vw + 60px);
   height: 39px;
   margin-top: 20px;
-  margin-left: calc(15vw - 60px);
+  padding-left: calc(15vw - 60px);
 }
 
 .textInput {
   height: 100%;
-  width: 70vw;
+  width: 66vw;
   background-color: var(--colorYellow);
   color: var(--colorBlue);
   font-family: "Cinzel Decorative", cursive;
@@ -59,6 +59,7 @@
   text-align: center;
   border: 0.1px solid var(--colorBlue);
   border-radius: 5px;
+  transition: all 500ms;
   &:focus {
     background-color: var(--colorBlue);
     color: var(--colorYellow);
@@ -71,7 +72,7 @@
   aspect-ratio: 4/3;
   height: 120%;
   align-content: center;
-  transform: translate(-0%, -4%);
+  transform: translate(-7%, -4%);
 }
 
 .flagsEnd {
@@ -79,7 +80,7 @@
   aspect-ratio: 4/3;
   height: 120%;
   align-content: center;
-  transform: translate(-25%, -4%);
+  transform: translate(-12%, -4%);
 }
 
 .addVokabularyButton {
@@ -94,10 +95,17 @@
   color: var(--colorBlue);
   border: 0.1px solid var(--colorBlue);
   border-radius: 25px;
-  &:focus,
+  transition: background-color 500ms, color 500ms, border-color 50ms,
+    transform 200ms;
   &:hover {
     background-color: var(--colorBlue);
     color: var(--colorYellow);
+    border-color: var(--colorYellow);
+  }
+  &:focus {
+    background-color: var(--colorBlue);
+    color: var(--colorYellow);
+    transform: translateY(4px);
     border-color: var(--colorYellow);
   }
 }

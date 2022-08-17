@@ -15,7 +15,7 @@
 <style lang="scss" scoped>
 .languageSelect {
   margin-top: 5vh;
-  margin-left: 16vw;
+  padding-left: 14vw;
   font-size: small;
   font-weight: 200;
   color: var(--colorYellow);
@@ -56,7 +56,7 @@
   color: var(--colorBlue);
   font-family: "Cinzel Decorative", cursive;
   border: 2px solid black;
-  border-radius: 40px 40px 40px 40px;
+  border-radius: 25px;
   height: 10vh;
   padding: 0 10px;
   font-size: 5vh;
@@ -69,7 +69,7 @@
     color: var(--colorYellow);
     border-color: var(--colorYellow);
   }
-  &:active {
+  &:focus {
     background-color: var(--colorBlue);
     color: var(--colorYellow);
     transform: translateY(4px);

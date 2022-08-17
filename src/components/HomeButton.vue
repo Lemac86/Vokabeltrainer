@@ -14,7 +14,7 @@ import { changeRoute, state } from "../router";
   width: 45px;
   aspect-ratio: 1/1;
   position: relative;
-  left: calc(100vw - 65px);
+  left: calc(95vw - 65px);
   border: none;
   transition: 500ms;
   cursor: pointer;
