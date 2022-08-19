@@ -1,32 +1,85 @@
 <template>
+  <Alert :alertText="alertString"></Alert>
   <h1 class="notHomeH1">Vokabelliste</h1>
   <div class="addVokabularyDiv">Vokabel hinzufügen:</div>
-  <div class="textInputDiv">
-    <img src="/germany.png" alt="germany" class="flagsBefore" />
-    <input
-      type="text"
-      id="inputDeutsch"
-      name="&#x1F50D;"
-      class="textInput"
-      placeholder="   Deutsche Bedeutung..."
-      required
-    />
-    <img src="/germany.png" alt="germany" class="flagsEnd" />
-  </div>
-  <div class="textInputDiv">
-    <img src="/sweden.png" alt="sweden" class="flagsBefore" />
-    <input
-      type="text"
-      id="inputSchwedisch"
-      name="&#x1F50D;"
-      class="textInput"
-      placeholder="   Schwedische Bedeutung..."
-      required
-    />
-    <img src="/sweden.png" alt="sweden" class="flagsEnd" />
-  </div>
-  <button class="addVokabularyButton">Hinzufügen</button>
+  <form @submit.prevent="addVokabulary()">
+    <div class="textInputDiv">
+      <img src="/germany.png" alt="germany" class="flagsBefore" />
+      <input
+        v-model="vokabularyInputGerman"
+        type="text"
+        id="inputDeutsch"
+        name="&#x1F50D;"
+        class="textInput"
+        placeholder="Deutsche Bedeutung..."
+        required
+      />
+      <img src="/germany.png" alt="germany" class="flagsEnd" />
+    </div>
+    <div class="textInputDiv">
+      <img src="/sweden.png" alt="sweden" class="flagsBefore" />
+      <input
+        v-model="vokabularyInputSwedish"
+        type="text"
+        id="inputSchwedisch"
+        name="&#x1F50D;"
+        class="textInput"
+        placeholder="Schwedische Bedeutung..."
+        required
+      />
+      <img src="/sweden.png" alt="sweden" class="flagsEnd" />
+    </div>
+    <button class="addVokabularyButton">Hinzufügen</button>
+  </form>
 </template>
+
+<script setup lang="ts">
+import { ref, Ref } from "vue";
+import Alert from "./Alert.vue";
+import { createToaster } from "@meforma/vue-toaster";
+
+const toaster = createToaster({
+  duration: 1500,
+  /* options */
+});
+
+const vokabularyInputGerman = ref("");
+const vokabularyInputSwedish = ref("");
+const alertString = ref("");
+
+interface Vokabulary {
+  german: string;
+  swedish: string;
+}
+const vokabularyList = ref<Vokabulary[]>([]);
+
+let importArr = localStorage.getItem(`storageArray`) as string | null;
+if (importArr) {
+  if (JSON.parse(importArr) !== null)
+    vokabularyList.value = JSON.parse(importArr);
+}
+
+function addVokabulary() {
+  if (
+    vokabularyList.value.findIndex(
+      (e) => e.german === vokabularyInputGerman.value
+    ) === -1
+  ) {
+    const vokabulary = {
+      german: vokabularyInputGerman.value,
+      swedish: vokabularyInputSwedish.value,
+    };
+    vokabularyList.value.push(vokabulary);
+    localStorage.setItem(`storageArray`, JSON.stringify(vokabularyList.value));
+    alertString.value = `${vokabularyInputGerman.value} : ${vokabularyInputSwedish.value} wurde hinzugefügt!`;
+    toaster.success(alertString.value);
+  } else {
+    alert(`You already added ${vokabularyInputGerman.value}!`);
+  }
+  vokabularyInputGerman.value = "";
+  vokabularyInputSwedish.value = "";
+}
+</script>
 
 <style lang="scss" scoped>
 .addVokabularyDiv {

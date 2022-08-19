@@ -4,12 +4,23 @@
     <input
       type="text"
       id="inputVok"
-      name="&#x1F50D;"
       class="textInput"
-      placeholder="&#x1F50D; Vokabel suchen..."
+      placeholder="🔍 Vokabel suchen..."
       required
     />
     <button class="searchButton">Suchen</button>
+  </div>
+  <div class="vokabularyList">
+    <div class="vokabularyListHeadline">
+      <span>Deutsch</span><span>Schwedisch</span>
+    </div>
+    <hr />
+    <ul>
+      <li v-for="element of vokabularyList" :key="element.german">
+        <span class="span">{{ `${element.german}` }}</span>
+        <span class="span">{{ `${element.swedish}` }}</span>
+      </li>
+    </ul>
   </div>
   <button
     class="addVokabularyButton"
@@ -20,10 +31,33 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import { changeRoute } from "../router";
+
+const vokabularyInputGerman = ref("");
+const vokabularyInputSwedish = ref("");
+interface Vokabulary {
+  german: string;
+  swedish: string;
+}
+const vokabularyList = ref<Vokabulary[]>([]);
+
+let importArr = localStorage.getItem(`storageArray`) as string | null;
+if (importArr) {
+  if (JSON.parse(importArr) !== null)
+    vokabularyList.value = JSON.parse(importArr);
+}
 </script>
 
 <style lang="scss" scoped>
+.vokabularyListHeadline {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 2vw;
+  // padding-left: 8vw;
+  font-size: 14px;
+  font-weight: 700;
+}
 .textInputDiv {
   position: relative;
   height: 5vh;
@@ -79,7 +113,7 @@ import { changeRoute } from "../router";
   margin: 0;
   padding: 0;
   top: 80%;
-  left: calc(50% - 40px);
+  left: calc(50% - 30px);
   justify-content: center;
   align-items: center;
   height: 80px;
@@ -98,5 +132,37 @@ import { changeRoute } from "../router";
   &:focus {
     transform: translateY(4px);
   }
+}
+
+.vokabularyList {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: calc(100% - 30px);
+  height: 42vh;
+  padding: 0px;
+  margin-top: 25px;
+  margin-left: 15px;
+  margin-right: 15px;
+  font-family: "Cinzel Decorative", cursive;
+  color: var(--colorBlue);
+  text-align: center;
+  font-size: 12px;
+  background-color: var(--colorYellow);
+  border: 0.1px solid var(--colorBlue);
+  border-radius: 15px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding-top: 5px;
+  padding-left: 22px;
+  padding-right: 5px;
+}
+
+.span {
+  padding: 0 35px 0 0;
 }
 </style>

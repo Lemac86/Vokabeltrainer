@@ -16,6 +16,5 @@ interface State {
 }
 
 export function changeRoute(stateRoute: State["route"]) {
-  console.log(stateRoute);
   setTimeout(() => (state.value.route = stateRoute), 500);
 }
