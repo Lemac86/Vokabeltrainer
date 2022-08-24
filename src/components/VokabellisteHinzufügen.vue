@@ -1,5 +1,4 @@
 <template>
-  <Alert :alertText="alertString"></Alert>
   <h1 class="notHomeH1">Vokabelliste</h1>
   <div class="addVokabularyDiv">Vokabel hinzufügen:</div>
   <form @submit.prevent="addVokabulary()">
@@ -35,11 +34,12 @@
 
 <script setup lang="ts">
 import { ref, Ref } from "vue";
-import Alert from "./Alert.vue";
 import { createToaster } from "@meforma/vue-toaster";
 
 const toaster = createToaster({
   duration: 1500,
+  position: "top",
+
   /* options */
 });
 
@@ -71,7 +71,7 @@ function addVokabulary() {
     };
     vokabularyList.value.push(vokabulary);
     localStorage.setItem(`storageArray`, JSON.stringify(vokabularyList.value));
-    alertString.value = `${vokabularyInputGerman.value} : ${vokabularyInputSwedish.value} wurde hinzugefügt!`;
+    alertString.value = `<b>${vokabularyInputGerman.value} : ${vokabularyInputSwedish.value}</b> wurde hinzugefügt!`;
     toaster.success(alertString.value);
   } else {
     alert(`You already added ${vokabularyInputGerman.value}!`);
@@ -92,7 +92,6 @@ function addVokabulary() {
 
 .textInputDiv {
   position: relative;
-  display: block;
   width: calc(100% - 15vw + 60px);
   height: 39px;
   margin-top: 20px;
@@ -101,14 +100,14 @@ function addVokabulary() {
 
 .textInput {
   height: 100%;
-  width: 66vw;
+  width: 60vw;
   background-color: var(--colorYellow);
   color: var(--colorBlue);
-  font-family: "Cinzel Decorative", cursive;
-  font-size: 0.8em;
+  font-family: "Indie Flower", cursive;
+  font-size: 1.2em;
   font-weight: 700;
-  padding: 0;
-  margin-left: 50px;
+  padding: 0 5px;
+  margin-left: 55px;
   text-align: center;
   border: 0.1px solid var(--colorBlue);
   border-radius: 5px;
@@ -124,16 +123,14 @@ function addVokabulary() {
   position: absolute;
   aspect-ratio: 4/3;
   height: 120%;
-  align-content: center;
-  transform: translate(-7%, -4%);
+  transform: translate(-2%, -4%);
 }
 
 .flagsEnd {
   position: absolute;
   aspect-ratio: 4/3;
   height: 120%;
-  align-content: center;
-  transform: translate(-12%, -4%);
+  transform: translate(-10%, -4%);
 }
 
 .addVokabularyButton {
@@ -142,8 +139,8 @@ function addVokabulary() {
   margin-left: calc(50% - 35vw);
   margin-top: 15vh;
   font-weight: 700;
-  font-family: "Cinzel Decorative", cursive;
-  font-size: 25px;
+  font-family: "Indie Flower", cursive;
+  font-size: 35px;
   background-color: var(--colorYellow);
   color: var(--colorBlue);
   border: 0.1px solid var(--colorBlue);

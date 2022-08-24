@@ -7,20 +7,20 @@
       class="textInput"
       placeholder="🔍 Vokabel suchen..."
       required
+      v-model="searchQuery"
     />
-    <button class="searchButton">Suchen</button>
   </div>
   <div class="vokabularyList">
     <div class="vokabularyListHeadline">
       <span>Deutsch</span><span>Schwedisch</span>
     </div>
     <hr />
-    <ul>
-      <li v-for="element of vokabularyList" :key="element.german">
+    <div class="vokabularyListGrid">
+      <template v-for="element of filteredList" :key="element.german">
         <span class="span">{{ `${element.german}` }}</span>
         <span class="span">{{ `${element.swedish}` }}</span>
-      </li>
-    </ul>
+      </template>
+    </div>
   </div>
   <button
     class="addVokabularyButton"
@@ -31,8 +31,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, readonly, computed } from "vue";
 import { changeRoute } from "../router";
+
+const searchQuery = ref("");
+const filteredList = computed(() =>
+  vokabularyList.value.filter(
+    (e) =>
+      e.german.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      e.swedish.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+);
 
 const vokabularyInputGerman = ref("");
 const vokabularyInputSwedish = ref("");
@@ -50,6 +59,9 @@ if (importArr) {
 </script>
 
 <style lang="scss" scoped>
+hr {
+  margin: 5px 0 0 0;
+}
 .vokabularyListHeadline {
   display: flex;
   justify-content: space-evenly;
@@ -72,7 +84,7 @@ if (importArr) {
   color: var(--colorBlue);
   border: 0.1px solid var(--colorYellow);
   transition: color 500ms, background-color 500ms, border-color 500ms;
-  font-family: "Cinzel Decorative", cursive;
+  font-family: "Indie Flower", cursive;
   text-align: left;
   transition: all 500ms;
   &:focus {
@@ -82,26 +94,11 @@ if (importArr) {
   }
 }
 
-.searchButton {
-  position: absolute;
-  height: 100%;
-  width: 20vw;
-  border: 0.1px solid var(--colorYellow);
-  border-radius: 0 20px 20px 0;
-  font-family: "Cinzel Decorative", cursive;
-  background: var(--colorBlue);
-  transform: translate(-20vw, 0px);
-
-  margin-right: calc(10vw - 10px);
-  color: var(--colorYellow);
-  font-family: "Cinzel Decorative", cursive;
-  transition: all 500ms;
-  &:hover,
-  &:focus {
-    background-color: var(--colorYellow);
-    border-color: var(--colorYellow);
-    color: var(--colorBlue);
-  }
+.vokabularyListGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px 10px;
+  padding: 5px;
 }
 
 .addVokabularyButton {
@@ -110,9 +107,7 @@ if (importArr) {
   font-size: 100px;
   font-family: "Courier New", Courier, monospace;
   color: var(--colorBlue);
-  margin: 0;
-  padding: 0;
-  top: 80%;
+  top: 82%;
   left: calc(50% - 30px);
   justify-content: center;
   align-items: center;
@@ -136,16 +131,12 @@ if (importArr) {
 
 .vokabularyList {
   overflow-y: scroll;
-  overflow-x: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   width: calc(100% - 30px);
   height: 42vh;
-  padding: 0px;
   margin-top: 25px;
   margin-left: 15px;
   margin-right: 15px;
-  font-family: "Cinzel Decorative", cursive;
+  font-family: "Indie Flower", cursive;
   color: var(--colorBlue);
   text-align: center;
   font-size: 12px;
@@ -163,6 +154,18 @@ ul {
 }
 
 .span {
-  padding: 0 35px 0 0;
+  overflow-x: hidden;
 }
 </style>
+
+<!-- <template>
+  <div id="app">
+    <input type="text" placeholder="search" v-model="searchQuery">
+    {{filteredList}}
+  </div>
+</template>
+
+<script setup>
+  
+</script> 
+ -->

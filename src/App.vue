@@ -29,11 +29,13 @@ import Statistik from "./components/Statistik.vue";
 
 <style lang="scss">
 :root {
+  border-radius: 25px;
   --colorBlue: #2b25d3;
   --colorYellow: #deff08;
 }
 
 #app {
+  border-radius: 25px;
   padding-right: 10px;
   padding-top: 10px;
   padding-left: 5vw;
@@ -42,6 +44,7 @@ import Statistik from "./components/Statistik.vue";
 }
 
 body {
+  border-radius: 25px;
   margin: 0;
   height: 100vh;
   background-repeat: no-repeat;
@@ -57,10 +60,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
   font-family: "Cinzel Decorative", cursive;
   font-weight: 400;
-  padding: 0;
   margin: 0;
   height: 22.5%;
   width: 100%;
@@ -74,10 +75,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
   font-family: "Cinzel Decorative", cursive;
   font-weight: 400;
-  padding: 0;
   margin: 0;
   height: 50%;
   width: 100%;

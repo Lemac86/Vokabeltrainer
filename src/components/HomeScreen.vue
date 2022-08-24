@@ -39,7 +39,6 @@ main {
 
 header {
   height: 45vh;
-  padding: 0;
 }
 
 .button {

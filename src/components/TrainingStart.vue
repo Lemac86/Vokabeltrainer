@@ -1,7 +1,7 @@
 <template>
   <h1 class="notHomeH1">Training</h1>
   <h3 class="languageSelect">Wähle eine Sprache:</h3>
-  <div class="flagsSpan">
+  <div class="flagsDiv">
     <button class="flagsButtons">
       <img src="/germany.png" alt="germany" class="flags" />
     </button>
@@ -15,8 +15,7 @@
 <style lang="scss" scoped>
 .languageSelect {
   margin-top: 5vh;
-  padding-left: 14vw;
-  font-size: small;
+  padding-left: 15vw;
   font-weight: 200;
   color: var(--colorYellow);
   font-family: "Cinzel Decorative", cursive;
@@ -31,7 +30,7 @@
   background-color: transparent;
 }
 
-.flagsSpan {
+.flagsDiv {
   display: flex;
   justify-content: space-evenly;
   margin-top: 3vh;
