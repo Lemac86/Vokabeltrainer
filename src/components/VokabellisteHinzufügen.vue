@@ -104,7 +104,7 @@ function addVokabulary() {
   background-color: var(--colorYellow);
   color: var(--colorBlue);
   font-family: "Indie Flower", cursive;
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: 700;
   padding: 0 5px;
   margin-left: 55px;

@@ -3,14 +3,41 @@
   <h3 class="languageSelect">Wähle eine Sprache:</h3>
   <div class="flagsDiv">
     <button class="flagsButtons">
-      <img src="/germany.png" alt="germany" class="flags" />
+      <img
+        src="/germany.png"
+        alt="germany"
+        class="flags"
+        @click="languageSelected = 'german'"
+      />
     </button>
     <button class="flagsButtons">
-      <img src="/sweden.png" alt="sweden" class="flags" />
+      <img
+        src="/sweden.png"
+        alt="sweden"
+        class="flags"
+        @click="languageSelected = 'swedish'"
+      />
     </button>
   </div>
-  <div class="startButtonDiv"><button class="startButton">Start</button></div>
+  <div class="startButtonDiv">
+    <button
+      class="startButton"
+      :disabled="startDisabled"
+      @click="changeRoute('training')"
+    >
+      Start
+    </button>
+  </div>
 </template>
+
+<script setup lang="ts">
+import { computed } from "@vue/reactivity";
+import { ref, watchEffect } from "vue";
+import { changeRoute } from "../router";
+
+const languageSelected = ref("");
+const startDisabled = computed(() => languageSelected.value === "");
+</script>
 
 <style lang="scss" scoped>
 .languageSelect {

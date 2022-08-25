@@ -15,11 +15,13 @@
       <span>Deutsch</span><span>Schwedisch</span>
     </div>
     <hr />
-    <div class="vokabularyListGrid">
-      <template v-for="element of filteredList" :key="element.german">
-        <span class="span">{{ `${element.german}` }}</span>
-        <span class="span">{{ `${element.swedish}` }}</span>
-      </template>
+    <div class="vokabularyListWrap">
+      <div class="vokabularyListGrid">
+        <template v-for="element of filteredList" :key="element.german">
+          <span class="span">{{ `${element.german}` }}</span>
+          <span class="span">{{ `${element.swedish}` }}</span>
+        </template>
+      </div>
     </div>
   </div>
   <button
@@ -59,16 +61,16 @@ if (importArr) {
 </script>
 
 <style lang="scss" scoped>
+.vokabularyListWrap {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 90%;
+  flex: 1;
+}
+
 hr {
   margin: 5px 0 0 0;
-}
-.vokabularyListHeadline {
-  display: flex;
-  justify-content: space-evenly;
-  padding-top: 2vw;
-  // padding-left: 8vw;
-  font-size: 14px;
-  font-weight: 700;
 }
 .textInputDiv {
   position: relative;
@@ -92,13 +94,6 @@ hr {
     background-color: var(--colorBlue);
     border: 0.1px solid var(--colorYellow);
   }
-}
-
-.vokabularyListGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5px 10px;
-  padding: 5px;
 }
 
 .addVokabularyButton {
@@ -129,8 +124,29 @@ hr {
   }
 }
 
+.vokabularyListHeadline {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 2vw;
+  // padding-left: 8vw;
+  font-size: 14px;
+  font-weight: 700;
+}
+.vokabularyListGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px 10px;
+  padding: 5px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding-top: 5px;
+  padding-left: 22px;
+  padding-right: 5px;
+}
 .vokabularyList {
-  overflow-y: scroll;
   width: calc(100% - 30px);
   height: 42vh;
   margin-top: 25px;
@@ -145,27 +161,7 @@ hr {
   border-radius: 15px;
 }
 
-ul {
-  list-style: none;
-  margin: 0;
-  padding-top: 5px;
-  padding-left: 22px;
-  padding-right: 5px;
-}
-
 .span {
   overflow-x: hidden;
 }
 </style>
-
-<!-- <template>
-  <div id="app">
-    <input type="text" placeholder="search" v-model="searchQuery">
-    {{filteredList}}
-  </div>
-</template>
-
-<script setup>
-  
-</script> 
- -->
