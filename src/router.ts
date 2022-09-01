@@ -14,7 +14,10 @@ interface State {
     | "vokabellisteSuche"
     | "vokabellisteHinzufügen";
 }
-
+/**
+ *
+ * @param stateRoute route to be changed to
+ */
 export function changeRoute(stateRoute: State["route"]) {
   setTimeout(() => (state.value.route = stateRoute), 500);
 }

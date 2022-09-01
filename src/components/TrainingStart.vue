@@ -1,41 +1,49 @@
 <template>
-  <h1 class="notHomeH1">Training</h1>
-  <h3 class="languageSelect">Wähle eine Sprache:</h3>
-  <div class="flagsDiv">
-    <button class="flagsButtons">
-      <img
-        src="/germany.png"
-        alt="germany"
-        class="flags"
-        @click="languageSelected = 'german'"
-      />
-    </button>
-    <button class="flagsButtons">
-      <img
-        src="/sweden.png"
-        alt="sweden"
-        class="flags"
-        @click="languageSelected = 'swedish'"
-      />
-    </button>
+  <div v-if="!startTraining">
+    <h1 class="notHomeH1">Training</h1>
+    <h3 class="languageSelect">Wähle eine Sprache:</h3>
+    <div class="flagsDiv">
+      <button class="flagsButtons">
+        <img
+          src="/germany.png"
+          alt="germany"
+          class="flags"
+          @click="languageSelected = 'german'"
+        />
+      </button>
+      <button class="flagsButtons">
+        <img
+          src="/sweden.png"
+          alt="sweden"
+          class="flags"
+          @click="languageSelected = 'swedish'"
+        />
+      </button>
+    </div>
+    <div class="startButtonDiv">
+      <button
+        class="startButton"
+        :disabled="startDisabled"
+        @click="startTraining = true"
+      >
+        Start
+      </button>
+    </div>
   </div>
-  <div class="startButtonDiv">
-    <button
-      class="startButton"
-      :disabled="startDisabled"
-      @click="changeRoute('training')"
-    >
-      Start
-    </button>
-  </div>
+  <Training
+    :language="languageSelected"
+    v-if="startTraining && languageSelected"
+  ></Training>
 </template>
 
 <script setup lang="ts">
 import { computed } from "@vue/reactivity";
 import { ref, watchEffect } from "vue";
 import { changeRoute } from "../router";
+import Training from "./Training.vue";
 
-const languageSelected = ref("");
+const startTraining = ref(false);
+const languageSelected = ref<"german" | "swedish" | "">();
 const startDisabled = computed(() => languageSelected.value === "");
 </script>
 

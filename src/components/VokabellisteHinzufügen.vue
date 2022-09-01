@@ -33,8 +33,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref } from "vue";
+import { ref, Ref, watchEffect } from "vue";
 import { createToaster } from "@meforma/vue-toaster";
+import { vokabularyList } from "../getLocalStorage";
 
 const toaster = createToaster({
   duration: 1500,
@@ -47,18 +48,6 @@ const vokabularyInputGerman = ref("");
 const vokabularyInputSwedish = ref("");
 const alertString = ref("");
 
-interface Vokabulary {
-  german: string;
-  swedish: string;
-}
-const vokabularyList = ref<Vokabulary[]>([]);
-
-let importArr = localStorage.getItem(`storageArray`) as string | null;
-if (importArr) {
-  if (JSON.parse(importArr) !== null)
-    vokabularyList.value = JSON.parse(importArr);
-}
-
 function addVokabulary() {
   if (
     vokabularyList.value.findIndex(
@@ -66,11 +55,16 @@ function addVokabulary() {
     ) === -1
   ) {
     const vokabulary = {
+      timesAskedGerman: 0,
+      timesAskedSwedish: 0,
+      timesCorrectGerman: 0,
+      timesCorrectSwedish: 0,
       german: vokabularyInputGerman.value,
       swedish: vokabularyInputSwedish.value,
     };
+
     vokabularyList.value.push(vokabulary);
-    localStorage.setItem(`storageArray`, JSON.stringify(vokabularyList.value));
+
     alertString.value = `<b>${vokabularyInputGerman.value} : ${vokabularyInputSwedish.value}</b> wurde hinzugefügt!`;
     toaster.success(alertString.value);
   } else {

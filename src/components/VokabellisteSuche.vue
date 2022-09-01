@@ -35,6 +35,7 @@
 <script setup lang="ts">
 import { ref, readonly, computed } from "vue";
 import { changeRoute } from "../router";
+import { vokabularyList } from "../getLocalStorage";
 
 const searchQuery = ref("");
 const filteredList = computed(() =>
@@ -47,17 +48,6 @@ const filteredList = computed(() =>
 
 const vokabularyInputGerman = ref("");
 const vokabularyInputSwedish = ref("");
-interface Vokabulary {
-  german: string;
-  swedish: string;
-}
-const vokabularyList = ref<Vokabulary[]>([]);
-
-let importArr = localStorage.getItem(`storageArray`) as string | null;
-if (importArr) {
-  if (JSON.parse(importArr) !== null)
-    vokabularyList.value = JSON.parse(importArr);
-}
 </script>
 
 <style lang="scss" scoped>

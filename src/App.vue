@@ -1,7 +1,6 @@
 <template>
   <HomeButton v-if="state.route !== 'home'"></HomeButton>
   <HomeScreen v-if="state.route === 'home'"></HomeScreen>
-  <Training v-if="state.route === 'training'"></Training>
   <TrainingStart v-if="state.route === 'trainingStart'"></TrainingStart>
   <Test v-if="state.route === 'test'"></Test>
   <VokabellisteHinzufügen
@@ -14,17 +13,19 @@
 </template>
 
 <script setup lang="ts">
-import { Ref, ref } from "vue";
-import { state, changeRoute } from "./router";
-
+import { state } from "./router";
+import { fetchVokabularyList } from "./getLocalStorage";
 import HomeButton from "./components/HomeButton.vue";
 import HomeScreen from "./components/HomeScreen.vue";
-import Training from "./components/Training.vue";
 import Test from "./components/Test.vue";
 import TrainingStart from "./components/TrainingStart.vue";
 import VokabellisteHinzufügen from "./components/VokabellisteHinzufügen.vue";
 import VokabellisteSuche from "./components/VokabellisteSuche.vue";
 import Statistik from "./components/Statistik.vue";
+import { mutate } from "./seeder";
+
+fetchVokabularyList();
+mutate();
 </script>
 
 <style lang="scss">
