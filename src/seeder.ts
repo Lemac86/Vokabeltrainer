@@ -1,7 +1,7 @@
-import { vokabularyList } from "./getLocalStorage";
+import { vocabularyList } from "./getLocalStorage";
 
 export function mutate() {
-  for (let e of vokabularyList.value) {
+  for (let e of vocabularyList.value) {
     e["timesAskedGerman"] = e["timesAskedGerman"] ?? 0;
     e["timesAskedSwedish"] = e["timesAskedSwedish"] ?? 0;
     e["timesCorrectGerman"] = e["timesCorrectGerman"] ?? 0;

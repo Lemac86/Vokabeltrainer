@@ -4,38 +4,38 @@
   <div class="asked">
     <h3>Insgesamt</h3>
     <h3>
-      {{ germanVokabularyAsked + swedishVokabularyAsked }}
+      {{ germanVocabularyAsked + swedishVocabularyAsked }}
     </h3>
     <h3>Deutsch</h3>
-    <h3>{{ germanVokabularyAsked }}</h3>
+    <h3>{{ germanVocabularyAsked }}</h3>
     <h3>Schwedisch</h3>
-    <h3>{{ swedishVokabularyAsked }}</h3>
+    <h3>{{ swedishVocabularyAsked }}</h3>
   </div>
 
   <h2>Verhältnis richtig zu falsch:</h2>
   <div class="ratio">
     <h3 class="right">
-      {{ germanVokabularyCorrect + swedishVokabularyCorrect }}
+      {{ germanVocabularyCorrect + swedishVocabularyCorrect }}
     </h3>
     <h3>Insgesamt</h3>
     <h3 class="wrong">
       {{
-        germanVokabularyAsked -
-        germanVokabularyCorrect +
-        (swedishVokabularyAsked - swedishVokabularyCorrect)
+        germanVocabularyAsked -
+        germanVocabularyCorrect +
+        (swedishVocabularyAsked - swedishVocabularyCorrect)
       }}
     </h3>
     <h3 class="right">
-      {{ germanVokabularyCorrect }}
+      {{ germanVocabularyCorrect }}
     </h3>
     <h3>Deutsch</h3>
     <h3 class="wrong">
-      {{ germanVokabularyAsked - germanVokabularyCorrect }}
+      {{ germanVocabularyAsked - germanVocabularyCorrect }}
     </h3>
-    <h3 class="right">{{ swedishVokabularyCorrect }}</h3>
+    <h3 class="right">{{ swedishVocabularyCorrect }}</h3>
     <h3>Schwedisch</h3>
     <h3 class="wrong">
-      {{ swedishVokabularyAsked - swedishVokabularyCorrect }}
+      {{ swedishVocabularyAsked - swedishVocabularyCorrect }}
     </h3>
   </div>
   <div class="reset">
@@ -47,27 +47,27 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { vokabularyList } from "../getLocalStorage";
+import { vocabularyList } from "../getLocalStorage";
 
-const germanVokabularyAsked = computed(() =>
-  vokabularyList.value.reduce((x, y) => x + y.timesAskedGerman, 0)
+const germanVocabularyAsked = computed(() =>
+  vocabularyList.value.reduce((x, y) => x + y.timesAskedGerman, 0)
 );
-const swedishVokabularyAsked = computed(() =>
-  vokabularyList.value.reduce((x, y) => x + y.timesAskedSwedish, 0)
+const swedishVocabularyAsked = computed(() =>
+  vocabularyList.value.reduce((x, y) => x + y.timesAskedSwedish, 0)
 );
-const germanVokabularyCorrect = computed(() =>
-  vokabularyList.value.reduce((x, y) => x + y.timesCorrectGerman, 0)
+const germanVocabularyCorrect = computed(() =>
+  vocabularyList.value.reduce((x, y) => x + y.timesCorrectGerman, 0)
 );
-const swedishVokabularyCorrect = computed(() =>
-  vokabularyList.value.reduce((x, y) => x + y.timesCorrectSwedish, 0)
+const swedishVocabularyCorrect = computed(() =>
+  vocabularyList.value.reduce((x, y) => x + y.timesCorrectSwedish, 0)
 );
 
 function resetStatistics() {
-  for (let e of vokabularyList.value) {
-    e["timesAskedGerman"] = 0;
-    e["timesAskedSwedish"] = 0;
-    e["timesCorrectGerman"] = 0;
-    e["timesCorrectSwedish"] = 0;
+  for (let e of vocabularyList.value) {
+    e.timesAskedGerman = 0;
+    e.timesAskedSwedish = 0;
+    e.timesCorrectGerman = 0;
+    e.timesCorrectSwedish = 0;
   }
 }
 </script>
@@ -89,18 +89,18 @@ div {
 }
 h2 {
   text-decoration: underline;
-  font-family: "Cinzel Decorative", cursive;
+  font-family: "Indie Flower", cursive;
   color: var(--colorYellow);
-  font-size: 2.2vh;
+  font-size: 2.6vh;
   text-align: center;
   text-shadow: -0.5px 0 black, 0 0.5px black, 1px 0 black, 0 -0.5px black,
     1.5px 1px 2px black;
 }
 h3 {
-  margin: 6px 0;
-  font-family: "Cinzel Decorative", cursive;
+  margin: 4px 0;
+  font-family: "Indie Flower", cursive;
   color: var(--colorYellow);
-  font-size: 1.9vh;
+  font-size: 2.4vh;
   text-align: center;
   text-shadow: -0.5px 0 black, 0 0.5px black, 1px 0 black, 0 -0.5px black,
     1.5px 1px 2px black;
@@ -131,8 +131,8 @@ h3 {
   color: var(--colorYellow);
   border: 2px solid var(--colorYellow);
   border-radius: 15px;
-  font-size: 2vh;
-  font-family: "Cinzel Decorative", cursive;
+  font-size: 3vh;
+  font-family: "Indie Flower", cursive;
   padding: 10px 15px;
   box-shadow: 1px 3px 10px;
   transition: all 100ms;
@@ -142,7 +142,7 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10vh;
+  margin-top: 8vh;
   height: 4vh;
 }
 </style>

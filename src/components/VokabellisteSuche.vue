@@ -10,13 +10,13 @@
       v-model="searchQuery"
     />
   </div>
-  <div class="vokabularyList">
-    <div class="vokabularyListHeadline">
+  <div class="vocabularyList">
+    <div class="vocabularyListHeadline">
       <span>Deutsch</span><span>Schwedisch</span>
     </div>
     <hr />
-    <div class="vokabularyListWrap">
-      <div class="vokabularyListGrid">
+    <div class="vocabularyListWrap">
+      <div class="vocabularyListGrid">
         <template v-for="element of filteredList" :key="element.german">
           <span class="span">{{ `${element.german}` }}</span>
           <span class="span">{{ `${element.swedish}` }}</span>
@@ -25,7 +25,7 @@
     </div>
   </div>
   <button
-    class="addVokabularyButton"
+    class="addVocabularyButton"
     @click="changeRoute('vokabellisteHinzufügen')"
   >
     +
@@ -35,23 +35,23 @@
 <script setup lang="ts">
 import { ref, readonly, computed } from "vue";
 import { changeRoute } from "../router";
-import { vokabularyList } from "../getLocalStorage";
+import { vocabularyList } from "../getLocalStorage";
 
 const searchQuery = ref("");
 const filteredList = computed(() =>
-  vokabularyList.value.filter(
+  vocabularyList.value.filter(
     (e) =>
       e.german.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
       e.swedish.toLowerCase().includes(searchQuery.value.toLowerCase())
   )
 );
 
-const vokabularyInputGerman = ref("");
-const vokabularyInputSwedish = ref("");
+const vocabularyInputGerman = ref("");
+const vocabularyInputSwedish = ref("");
 </script>
 
 <style lang="scss" scoped>
-.vokabularyListWrap {
+.vocabularyListWrap {
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
@@ -86,7 +86,7 @@ hr {
   }
 }
 
-.addVokabularyButton {
+.addVocabularyButton {
   position: absolute;
   display: flex;
   font-size: 100px;
@@ -114,7 +114,7 @@ hr {
   }
 }
 
-.vokabularyListHeadline {
+.vocabularyListHeadline {
   display: flex;
   justify-content: space-evenly;
   padding-top: 2vw;
@@ -122,7 +122,7 @@ hr {
   font-size: 14px;
   font-weight: 700;
 }
-.vokabularyListGrid {
+.vocabularyListGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px 10px;
@@ -136,7 +136,7 @@ hr {
 //   padding-left: 22px;
 //   padding-right: 5px;
 // }
-.vokabularyList {
+.vocabularyList {
   width: calc(100% - 30px);
   height: 42vh;
   margin-top: 25px;
@@ -145,7 +145,7 @@ hr {
   font-family: "Indie Flower", cursive;
   color: var(--colorBlue);
   text-align: center;
-  font-size: 12px;
+  font-size: 16px;
   background-color: var(--colorYellow);
   border: 0.1px solid var(--colorBlue);
   border-radius: 15px;

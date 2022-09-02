@@ -1,6 +1,5 @@
 <template>
-  <h1 class="notHomeH1">Training</h1>
-  <div class="searchedVokabulary">{{ question }}</div>
+  <div class="searchedVocabulary">{{ question }}</div>
   <div class="answerOptions">
     <button
       @click="(selectedButton = index), pushButton()"
@@ -20,7 +19,7 @@
 <script setup lang="ts">
 import { computed } from "@vue/reactivity";
 import { ref, toRefs } from "vue";
-import { vokabularyList } from "../getLocalStorage";
+import { vocabularyList } from "../getLocalStorage";
 
 const disableButton = ref(false);
 const props = defineProps<{
@@ -44,18 +43,18 @@ const sortedAnswerArr = ref<string[]>([]);
 const selectedButton = ref<number | null>(null);
 const correct = ref<number | null>(null);
 
-function getSearchedForVokabulary() {
-  let i = Math.floor(Math.random() * vokabularyList.value.length);
-  germanMeaning.value = vokabularyList.value[i].german;
-  swedishMeaning.value = vokabularyList.value[i].swedish;
+function getSearchedForVocabulary() {
+  let i = Math.floor(Math.random() * vocabularyList.value.length);
+  germanMeaning.value = vocabularyList.value[i].german;
+  swedishMeaning.value = vocabularyList.value[i].swedish;
   let j, k;
   do {
-    j = Math.floor(Math.random() * vokabularyList.value.length);
-    germanWrong1.value = vokabularyList.value[j].german;
-    swedishWrong1.value = vokabularyList.value[j].swedish;
-    k = Math.floor(Math.random() * vokabularyList.value.length);
-    germanWrong2.value = vokabularyList.value[k].german;
-    swedishWrong2.value = vokabularyList.value[k].swedish;
+    j = Math.floor(Math.random() * vocabularyList.value.length);
+    germanWrong1.value = vocabularyList.value[j].german;
+    swedishWrong1.value = vocabularyList.value[j].swedish;
+    k = Math.floor(Math.random() * vocabularyList.value.length);
+    germanWrong2.value = vocabularyList.value[k].german;
+    swedishWrong2.value = vocabularyList.value[k].swedish;
   } while (i === j || i === k || j === k);
 
   if (language.value === "german") {
@@ -78,34 +77,34 @@ function getSearchedForVokabulary() {
   sortedAnswerArr.value = [...answerArr.value].sort();
 }
 
-getSearchedForVokabulary();
+getSearchedForVocabulary();
 
 function pushButton() {
-  let thisVokabulary = vokabularyList.value.find(
+  let thisVocabulary = vocabularyList.value.find(
     (e) => e.german === germanMeaning.value
   );
-  if (language.value === "german" && thisVokabulary) {
-    thisVokabulary.timesAskedGerman += 1;
+  if (language.value === "german" && thisVocabulary) {
+    thisVocabulary.timesAskedGerman += 1;
   }
-  if (language.value === "swedish" && thisVokabulary) {
-    thisVokabulary.timesAskedSwedish += 1;
+  if (language.value === "swedish" && thisVocabulary) {
+    thisVocabulary.timesAskedSwedish += 1;
   }
   if (
     selectedButton.value !== null &&
     sortedAnswerArr.value[selectedButton.value] === rightAnswer.value
   ) {
     correct.value = 1;
-    if (language.value === "german" && thisVokabulary) {
-      thisVokabulary.timesCorrectGerman += 1;
-    } else if (language.value === "swedish" && thisVokabulary) {
-      thisVokabulary.timesCorrectSwedish += 1;
+    if (language.value === "german" && thisVocabulary) {
+      thisVocabulary.timesCorrectGerman += 1;
+    } else if (language.value === "swedish" && thisVocabulary) {
+      thisVocabulary.timesCorrectSwedish += 1;
     }
   } else {
     correct.value = 0;
   }
   disableButton.value = true;
   setTimeout(() => {
-    getSearchedForVokabulary();
+    getSearchedForVocabulary();
     disableButton.value = false;
     selectedButton.value = null;
     correct.value = null;
@@ -114,7 +113,7 @@ function pushButton() {
 </script>
 
 <style lang="scss" scoped>
-.searchedVokabulary {
+.searchedVocabulary {
   padding: 8px 0;
   margin: 2vh auto;
   width: 70vw;

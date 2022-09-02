@@ -10,7 +10,7 @@
     <button class="button" @click="changeRoute('trainingStart')">
       Training
     </button>
-    <button class="button" @click="changeRoute('test')">Test</button>
+    <button class="button" @click="changeRoute('teststart')">Test</button>
     <button class="button" @click="changeRoute('vokabellisteSuche')">
       Vokabelliste
     </button>

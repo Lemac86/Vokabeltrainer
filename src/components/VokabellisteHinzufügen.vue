@@ -1,11 +1,11 @@
 <template>
   <h1 class="notHomeH1">Vokabelliste</h1>
-  <div class="addVokabularyDiv">Vokabel hinzufügen:</div>
-  <form @submit.prevent="addVokabulary()">
+  <div class="addVocabularyDiv">Vokabel hinzufügen:</div>
+  <form @submit.prevent="addVocabulary()">
     <div class="textInputDiv">
       <img src="/germany.png" alt="germany" class="flagsBefore" />
       <input
-        v-model="vokabularyInputGerman"
+        v-model="vocabularyInputGerman"
         type="text"
         id="inputDeutsch"
         name="&#x1F50D;"
@@ -18,7 +18,7 @@
     <div class="textInputDiv">
       <img src="/sweden.png" alt="sweden" class="flagsBefore" />
       <input
-        v-model="vokabularyInputSwedish"
+        v-model="vocabularyInputSwedish"
         type="text"
         id="inputSchwedisch"
         name="&#x1F50D;"
@@ -28,14 +28,14 @@
       />
       <img src="/sweden.png" alt="sweden" class="flagsEnd" />
     </div>
-    <button class="addVokabularyButton">Hinzufügen</button>
+    <button class="addVocabularyButton">Hinzufügen</button>
   </form>
 </template>
 
 <script setup lang="ts">
 import { ref, Ref, watchEffect } from "vue";
 import { createToaster } from "@meforma/vue-toaster";
-import { vokabularyList } from "../getLocalStorage";
+import { vocabularyList } from "../getLocalStorage";
 
 const toaster = createToaster({
   duration: 1500,
@@ -44,44 +44,46 @@ const toaster = createToaster({
   /* options */
 });
 
-const vokabularyInputGerman = ref("");
-const vokabularyInputSwedish = ref("");
+const vocabularyInputGerman = ref("");
+const vocabularyInputSwedish = ref("");
 const alertString = ref("");
 
-function addVokabulary() {
+function addVocabulary() {
   if (
-    vokabularyList.value.findIndex(
-      (e) => e.german === vokabularyInputGerman.value
+    vocabularyList.value.findIndex(
+      (e) => e.german === vocabularyInputGerman.value
     ) === -1
   ) {
-    const vokabulary = {
+    const vocabulary = {
       timesAskedGerman: 0,
       timesAskedSwedish: 0,
       timesCorrectGerman: 0,
       timesCorrectSwedish: 0,
-      german: vokabularyInputGerman.value,
-      swedish: vokabularyInputSwedish.value,
+      german: vocabularyInputGerman.value,
+      swedish: vocabularyInputSwedish.value,
     };
 
-    vokabularyList.value.push(vokabulary);
+    vocabularyList.value.push(vocabulary);
 
-    alertString.value = `<b>${vokabularyInputGerman.value} : ${vokabularyInputSwedish.value}</b> wurde hinzugefügt!`;
+    alertString.value = `<b>${vocabularyInputGerman.value} : ${vocabularyInputSwedish.value}</b> wurde hinzugefügt!`;
     toaster.success(alertString.value);
   } else {
-    alert(`You already added ${vokabularyInputGerman.value}!`);
+    alert(`You already added ${vocabularyInputGerman.value}!`);
   }
-  vokabularyInputGerman.value = "";
-  vokabularyInputSwedish.value = "";
+  vocabularyInputGerman.value = "";
+  vocabularyInputSwedish.value = "";
 }
 </script>
 
 <style lang="scss" scoped>
-.addVokabularyDiv {
-  font-family: "Cinzel Decorative", cursive;
+.addVocabularyDiv {
+  font-family: "Indie Flower", cursive;
   color: var(--colorYellow);
   margin-left: 12px;
   padding-bottom: 20px;
-  font-size: min(4vw, 40px);
+  font-size: min(5vw, 40px);
+  text-shadow: -0.5px 0 black, 0 0.5px black, 1px 0 black, 0 -0.5px black,
+    1.5px 1px 2px black;
 }
 
 .textInputDiv {
@@ -128,7 +130,7 @@ function addVokabulary() {
   transform: translate(-10%, -4%);
 }
 
-.addVokabularyButton {
+.addVocabularyButton {
   height: 15vh;
   width: 70vw;
   margin-left: calc(50% - 35vw);

@@ -7,7 +7,7 @@ export const state = ref<State>({
 interface State {
   route:
     | "home"
-    | "test"
+    | "teststart"
     | "trainingStart"
     | "training"
     | "statistik"

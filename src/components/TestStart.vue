@@ -1,6 +1,14 @@
 <template>
-  <h1 class="notHomeH1">Training</h1>
-  <div v-if="!startTraining">
+  <h1 class="notHomeH1">Test</h1>
+  <div v-if="!startTest">
+    <div class="erklärungsText">
+      <p>
+        Es werden 100 Vokabeln abgefragt. <br />
+        Zum bestehen dürfen nicht mehr als 5 Vokabeln falsch beantwortet
+        werden.<br />
+        Viel Erfolg!
+      </p>
+    </div>
     <h3 class="languageSelect">Wähle eine Sprache:</h3>
     <div class="flagsDiv">
       <button class="flagsButtons">
@@ -24,31 +32,39 @@
       <button
         class="startButton"
         :disabled="startDisabled"
-        @click="startTraining = true"
+        @click="startTest = true"
       >
         Start
       </button>
     </div>
   </div>
-  <Training
+  <Test
     :language="languageSelected"
-    v-if="startTraining && languageSelected"
-  ></Training>
+    v-if="startTest && languageSelected"
+  ></Test>
 </template>
 
 <script setup lang="ts">
 import { computed } from "@vue/reactivity";
 import { ref } from "vue";
-import Training from "./Training.vue";
+import Test from "./Test.vue";
 
-const startTraining = ref(false);
+const startTest = ref(false);
 const languageSelected = ref<"german" | "swedish" | "">("");
 const startDisabled = computed(() => languageSelected.value === "");
 </script>
 
 <style lang="scss" scoped>
+.erklärungsText {
+  font-family: "Indie Flower", cursive;
+  background-color: var(--colorYellow);
+  color: var(--colorBlue);
+  font-size: 2vh;
+  font-weight: 700;
+  padding-left: 5px;
+}
 .languageSelect {
-  margin-top: 10vh;
+  margin-top: 4vh;
   padding-left: 15vw;
   font-weight: 200;
   color: var(--colorYellow);
@@ -113,6 +129,6 @@ const startDisabled = computed(() => languageSelected.value === "");
 .startButtonDiv {
   display: flex;
   justify-content: center;
-  margin-top: 15vh;
+  margin-top: 8vh;
 }
 </style>

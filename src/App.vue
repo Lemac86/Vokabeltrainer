@@ -2,7 +2,7 @@
   <HomeButton v-if="state.route !== 'home'"></HomeButton>
   <HomeScreen v-if="state.route === 'home'"></HomeScreen>
   <TrainingStart v-if="state.route === 'trainingStart'"></TrainingStart>
-  <Test v-if="state.route === 'test'"></Test>
+  <TestStart v-if="state.route === 'teststart'"></TestStart>
   <VokabellisteHinzufügen
     v-if="state.route === 'vokabellisteHinzufügen'"
   ></VokabellisteHinzufügen>
@@ -14,17 +14,17 @@
 
 <script setup lang="ts">
 import { state } from "./router";
-import { fetchVokabularyList } from "./getLocalStorage";
+import { fetchVocabularyList } from "./getLocalStorage";
 import HomeButton from "./components/HomeButton.vue";
 import HomeScreen from "./components/HomeScreen.vue";
-import Test from "./components/Test.vue";
+import TestStart from "./components/TestStart.vue";
 import TrainingStart from "./components/TrainingStart.vue";
 import VokabellisteHinzufügen from "./components/VokabellisteHinzufügen.vue";
 import VokabellisteSuche from "./components/VokabellisteSuche.vue";
 import Statistik from "./components/Statistik.vue";
 import { mutate } from "./seeder";
 
-fetchVokabularyList();
+fetchVocabularyList();
 mutate();
 </script>
 
@@ -61,7 +61,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Cinzel Decorative", cursive;
+  font-family: "Indie Flower", cursive;
   font-weight: 400;
   margin: 0;
   height: 22.5%;

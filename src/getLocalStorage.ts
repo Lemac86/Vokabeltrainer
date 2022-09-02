@@ -1,6 +1,6 @@
 import { Ref, ref, watchEffect } from "vue";
 
-interface Vokabulary {
+export interface Vocabulary {
   timesAskedGerman: number;
   timesAskedSwedish: number;
   timesCorrectGerman: number;
@@ -9,18 +9,18 @@ interface Vokabulary {
   swedish: string;
 }
 
-export const vokabularyList = ref<Vokabulary[]>([]);
+export const vocabularyList = ref<Vocabulary[]>([]);
 
-export function fetchVokabularyList() {
-  let importArr = localStorage.getItem(`storageVokabulary`) as string | null;
+export function fetchVocabularyList() {
+  let importArr = localStorage.getItem(`storageVocabulary`) as string | null;
   if (importArr) {
     if (JSON.parse(importArr) !== null)
-      vokabularyList.value = JSON.parse(importArr);
+      vocabularyList.value = JSON.parse(importArr);
   }
   watchEffect(() =>
     localStorage.setItem(
-      `storageVokabulary`,
-      JSON.stringify(vokabularyList.value)
+      `storageVocabulary`,
+      JSON.stringify(vocabularyList.value)
     )
   );
 }
