@@ -38,12 +38,11 @@
 
 <script setup lang="ts">
 import { computed } from "@vue/reactivity";
-import { ref, watchEffect } from "vue";
-import { changeRoute } from "../router";
+import { ref } from "vue";
 import Training from "./Training.vue";
 
 const startTraining = ref(false);
-const languageSelected = ref<"german" | "swedish" | "">();
+const languageSelected = ref<"german" | "swedish" | "">("");
 const startDisabled = computed(() => languageSelected.value === "");
 </script>
 

@@ -69,7 +69,7 @@ hr {
 .textInput {
   margin-left: 5vw;
   padding: 0px 0px 0px 5vw;
-  width: 75vw;
+  width: 77vw;
   height: calc(100% - 2px);
   border-radius: 20px;
   background: var(--colorYellow);
@@ -129,13 +129,13 @@ hr {
   padding: 5px;
 }
 
-ul {
-  list-style: none;
-  margin: 0;
-  padding-top: 5px;
-  padding-left: 22px;
-  padding-right: 5px;
-}
+// ul {
+//   list-style: none;
+//   margin: 0;
+//   padding-top: 5px;
+//   padding-left: 22px;
+//   padding-right: 5px;
+// }
 .vokabularyList {
   width: calc(100% - 30px);
   height: 42vh;

@@ -59,23 +59,11 @@ function getSearchedForVokabulary() {
   } while (i === j || i === k || j === k);
 
   if (language.value === "german") {
-    console.log(
-      vokabularyList.value[i].timesAskedGerman,
-      vokabularyList.value[i]
-    );
-    vokabularyList.value[i].timesAskedGerman += 1;
-
     question.value = germanMeaning.value;
     rightAnswer.value = swedishMeaning.value;
     wrongAnswer1.value = swedishWrong1.value;
     wrongAnswer2.value = swedishWrong2.value;
   } else {
-    console.log(
-      vokabularyList.value[i].timesAskedSwedish,
-      vokabularyList.value[i]
-    );
-    vokabularyList.value[i].timesAskedSwedish += 1;
-
     question.value = swedishMeaning.value;
     rightAnswer.value = germanMeaning.value;
     wrongAnswer1.value = germanWrong1.value;
@@ -93,18 +81,24 @@ function getSearchedForVokabulary() {
 getSearchedForVokabulary();
 
 function pushButton() {
+  let thisVokabulary = vokabularyList.value.find(
+    (e) => e.german === germanMeaning.value
+  );
+  if (language.value === "german" && thisVokabulary) {
+    thisVokabulary.timesAskedGerman += 1;
+  }
+  if (language.value === "swedish" && thisVokabulary) {
+    thisVokabulary.timesAskedSwedish += 1;
+  }
   if (
     selectedButton.value !== null &&
     sortedAnswerArr.value[selectedButton.value] === rightAnswer.value
   ) {
     correct.value = 1;
-    let correctVokabulary = vokabularyList.value.find(
-      (e) => e.german === germanMeaning.value
-    );
-    if (language.value === "german" && correctVokabulary) {
-      correctVokabulary.timesCorrectGerman += 1;
-    } else if (language.value === "swedish" && correctVokabulary) {
-      correctVokabulary.timesCorrectSwedish += 1;
+    if (language.value === "german" && thisVokabulary) {
+      thisVokabulary.timesCorrectGerman += 1;
+    } else if (language.value === "swedish" && thisVokabulary) {
+      thisVokabulary.timesCorrectSwedish += 1;
     }
   } else {
     correct.value = 0;

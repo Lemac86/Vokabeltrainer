@@ -79,7 +79,7 @@ function addVokabulary() {
 .addVokabularyDiv {
   font-family: "Cinzel Decorative", cursive;
   color: var(--colorYellow);
-  margin-left: 20px;
+  margin-left: 12px;
   padding-bottom: 20px;
   font-size: min(4vw, 40px);
 }
@@ -88,7 +88,8 @@ function addVokabulary() {
   position: relative;
   width: calc(100% - 15vw + 60px);
   height: 39px;
-  margin-top: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding-left: calc(15vw - 60px);
 }
 
