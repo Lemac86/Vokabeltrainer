@@ -1,5 +1,7 @@
 <template>
-  <div class="searchedVocabulary">{{ question }}</div>
+  <div class="searchedVocabulary">
+    {{ rightVocabulary?.[language].value }}
+  </div>
   <div class="answerOptions">
     <button
       @click="(selectedButton = index), pushButton()"
@@ -19,7 +21,7 @@
 <script setup lang="ts">
 import { computed } from "@vue/reactivity";
 import { ref, toRefs } from "vue";
-import { vocabularyList } from "../getLocalStorage";
+import { vocabularyList, Vocabulary } from "../getLocalStorage";
 
 const disableButton = ref(false);
 const props = defineProps<{
@@ -27,52 +29,49 @@ const props = defineProps<{
 }>();
 const { language } = toRefs(props);
 
-const swedishMeaning = ref("");
-const germanMeaning = ref("");
-const swedishWrong1 = ref("");
-const germanWrong1 = ref("");
-const swedishWrong2 = ref("");
-const germanWrong2 = ref("");
+let otherLanguage: "german" | "swedish" = "german";
+if (language.value === "german") {
+  otherLanguage = "swedish";
+} else {
+  otherLanguage = "german";
+}
 
-const question = ref("");
-const rightAnswer = ref("");
-const wrongAnswer1 = ref("");
-const wrongAnswer2 = ref("");
 const answerArr = ref<string[]>([]);
 const sortedAnswerArr = ref<string[]>([]);
 const selectedButton = ref<number | null>(null);
 const correct = ref<number | null>(null);
 
-function getSearchedForVocabulary() {
-  let i = Math.floor(Math.random() * vocabularyList.value.length);
-  germanMeaning.value = vocabularyList.value[i].german.value;
-  swedishMeaning.value = vocabularyList.value[i].swedish.value;
-  let j, k;
-  do {
-    j = Math.floor(Math.random() * vocabularyList.value.length);
-    germanWrong1.value = vocabularyList.value[j].german.value;
-    swedishWrong1.value = vocabularyList.value[j].swedish.value;
-    k = Math.floor(Math.random() * vocabularyList.value.length);
-    germanWrong2.value = vocabularyList.value[k].german.value;
-    swedishWrong2.value = vocabularyList.value[k].swedish.value;
-  } while (i === j || i === k || j === k);
+const rightVocabulary = ref<Vocabulary>();
+const wrongVocabulary1 = ref<Vocabulary>();
+const wrongVocabulary2 = ref<Vocabulary>();
 
-  if (language.value === "german") {
-    question.value = germanMeaning.value;
-    rightAnswer.value = swedishMeaning.value;
-    wrongAnswer1.value = swedishWrong1.value;
-    wrongAnswer2.value = swedishWrong2.value;
-  } else {
-    question.value = swedishMeaning.value;
-    rightAnswer.value = germanMeaning.value;
-    wrongAnswer1.value = germanWrong1.value;
-    wrongAnswer2.value = germanWrong2.value;
-  }
+function getSearchedForVocabulary() {
+  rightVocabulary.value =
+    vocabularyList.value[
+      Math.floor(Math.random() * vocabularyList.value.length)
+    ];
+  do {
+    wrongVocabulary1.value =
+      vocabularyList.value[
+        Math.floor(Math.random() * vocabularyList.value.length)
+      ];
+    wrongVocabulary2.value =
+      vocabularyList.value[
+        Math.floor(Math.random() * vocabularyList.value.length)
+      ];
+  } while (
+    rightVocabulary.value.german.value ===
+      wrongVocabulary1.value.german.value ||
+    rightVocabulary.value.german.value ===
+      wrongVocabulary2.value.german.value ||
+    wrongVocabulary1.value.german.value === wrongVocabulary2.value.german.value
+  );
+
   answerArr.value = [];
   answerArr.value.push(
-    rightAnswer.value,
-    wrongAnswer1.value,
-    wrongAnswer2.value
+    rightVocabulary.value[otherLanguage].value,
+    wrongVocabulary1.value[otherLanguage].value,
+    wrongVocabulary2.value[otherLanguage].value
   );
   sortedAnswerArr.value = [...answerArr.value].sort();
 }
@@ -80,28 +79,20 @@ function getSearchedForVocabulary() {
 getSearchedForVocabulary();
 
 function pushButton() {
-  let thisVocabulary = vocabularyList.value.find(
-    (e) => e.german.value === germanMeaning.value
-  );
-  if (language.value === "german" && thisVocabulary) {
-    thisVocabulary.german.timesAsked += 1;
-  }
-  if (language.value === "swedish" && thisVocabulary) {
-    thisVocabulary.swedish.timesAsked += 1;
-  }
-  if (
-    selectedButton.value !== null &&
-    sortedAnswerArr.value[selectedButton.value] === rightAnswer.value
-  ) {
-    correct.value = 1;
-    if (language.value === "german" && thisVocabulary) {
-      thisVocabulary.german.timesCorrect += 1;
-    } else if (language.value === "swedish" && thisVocabulary) {
-      thisVocabulary.swedish.timesCorrect += 1;
+  if (rightVocabulary.value) {
+    rightVocabulary.value[language.value].timesAsked += 1;
+    if (
+      selectedButton.value !== null &&
+      sortedAnswerArr.value[selectedButton.value] ===
+        rightVocabulary.value[otherLanguage].value
+    ) {
+      correct.value = 1;
+      rightVocabulary.value[language.value].timesCorrect += 1;
+    } else {
+      correct.value = 0;
     }
-  } else {
-    correct.value = 0;
   }
+
   disableButton.value = true;
   setTimeout(() => {
     getSearchedForVocabulary();
