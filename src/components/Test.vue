@@ -84,27 +84,26 @@ function pushButton() {
     if (
       selectedButton.value !== null &&
       sortedAnswerArr.value[selectedButton.value] ===
-        rightVocabulary.value.german
+        rightVocabulary.value.swedish
     ) {
       correct.value = 1;
       rightVocabulary.value.timesCorrectGerman += 1;
+    } else {
+      correct.value = 0;
     }
-  } else {
-    correct.value = 0;
   }
-
   if (language.value === "swedish" && rightVocabulary.value) {
     rightVocabulary.value.timesAskedSwedish += 1;
     if (
       selectedButton.value !== null &&
       sortedAnswerArr.value[selectedButton.value] ===
-        rightVocabulary.value.swedish
+        rightVocabulary.value.german
     ) {
       correct.value = 1;
       rightVocabulary.value.timesCorrectSwedish += 1;
+    } else {
+      correct.value = 0;
     }
-  } else {
-    correct.value = 0;
   }
   disableButton.value = true;
   setTimeout(() => {
