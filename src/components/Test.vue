@@ -1,6 +1,6 @@
 <template>
   <div class="searchedVocabulary">
-    {{ rightVocabulary?.[language] }}
+    {{ rightVocabulary?.[language].value }}
   </div>
   <div class="answerOptions">
     <button
@@ -29,6 +29,13 @@ const props = defineProps<{
 }>();
 const { language } = toRefs(props);
 
+let otherLanguage: "german" | "swedish" = "german";
+if (language.value === "german") {
+  otherLanguage = "swedish";
+} else {
+  otherLanguage = "german";
+}
+
 const answerArr = ref<string[]>([]);
 const sortedAnswerArr = ref<string[]>([]);
 const selectedButton = ref<number | null>(null);
@@ -53,58 +60,39 @@ function getSearchedForVocabulary() {
         Math.floor(Math.random() * vocabularyList.value.length)
       ];
   } while (
-    rightVocabulary.value.german === wrongVocabulary1.value.german ||
-    rightVocabulary.value.german === wrongVocabulary2.value.german ||
-    wrongVocabulary1.value.german === wrongVocabulary2.value.german
+    rightVocabulary.value.german.value ===
+      wrongVocabulary1.value.german.value ||
+    rightVocabulary.value.german.value ===
+      wrongVocabulary2.value.german.value ||
+    wrongVocabulary1.value.german.value === wrongVocabulary2.value.german.value
   );
 
   answerArr.value = [];
-  if (language.value === "german") {
-    answerArr.value.push(
-      rightVocabulary.value.swedish,
-      wrongVocabulary1.value.swedish,
-      wrongVocabulary2.value.swedish
-    );
-  } else {
-    answerArr.value.push(
-      rightVocabulary.value.german,
-      wrongVocabulary1.value.german,
-      wrongVocabulary2.value.german
-    );
-  }
-
+  answerArr.value.push(
+    rightVocabulary.value[otherLanguage].value,
+    wrongVocabulary1.value[otherLanguage].value,
+    wrongVocabulary2.value[otherLanguage].value
+  );
   sortedAnswerArr.value = [...answerArr.value].sort();
 }
 
 getSearchedForVocabulary();
 
 function pushButton() {
-  if (language.value === "german" && rightVocabulary.value) {
-    rightVocabulary.value.timesAskedGerman += 1;
+  if (rightVocabulary.value) {
+    rightVocabulary.value[language.value].timesAsked += 1;
     if (
       selectedButton.value !== null &&
       sortedAnswerArr.value[selectedButton.value] ===
-        rightVocabulary.value.swedish
+        rightVocabulary.value[otherLanguage].value
     ) {
       correct.value = 1;
-      rightVocabulary.value.timesCorrectGerman += 1;
+      rightVocabulary.value[language.value].timesCorrect += 1;
     } else {
       correct.value = 0;
     }
   }
-  if (language.value === "swedish" && rightVocabulary.value) {
-    rightVocabulary.value.timesAskedSwedish += 1;
-    if (
-      selectedButton.value !== null &&
-      sortedAnswerArr.value[selectedButton.value] ===
-        rightVocabulary.value.german
-    ) {
-      correct.value = 1;
-      rightVocabulary.value.timesCorrectSwedish += 1;
-    } else {
-      correct.value = 0;
-    }
-  }
+
   disableButton.value = true;
   setTimeout(() => {
     getSearchedForVocabulary();

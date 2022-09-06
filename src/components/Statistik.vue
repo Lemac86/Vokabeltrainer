@@ -50,24 +50,24 @@ import { computed } from "vue";
 import { vocabularyList } from "../getLocalStorage";
 
 const germanVocabularyAsked = computed(() =>
-  vocabularyList.value.reduce((x, y) => x + y.timesAskedGerman, 0)
+  vocabularyList.value.reduce((x, y) => x + y.german.timesAsked, 0)
 );
 const swedishVocabularyAsked = computed(() =>
-  vocabularyList.value.reduce((x, y) => x + y.timesAskedSwedish, 0)
+  vocabularyList.value.reduce((x, y) => x + y.swedish.timesAsked, 0)
 );
 const germanVocabularyCorrect = computed(() =>
-  vocabularyList.value.reduce((x, y) => x + y.timesCorrectGerman, 0)
+  vocabularyList.value.reduce((x, y) => x + y.german.timesCorrect, 0)
 );
 const swedishVocabularyCorrect = computed(() =>
-  vocabularyList.value.reduce((x, y) => x + y.timesCorrectSwedish, 0)
+  vocabularyList.value.reduce((x, y) => x + y.swedish.timesCorrect, 0)
 );
 
 function resetStatistics() {
   for (let e of vocabularyList.value) {
-    e.timesAskedGerman = 0;
-    e.timesAskedSwedish = 0;
-    e.timesCorrectGerman = 0;
-    e.timesCorrectSwedish = 0;
+    e.german.timesAsked = 0;
+    e.swedish.timesAsked = 0;
+    e.german.timesCorrect = 0;
+    e.swedish.timesCorrect = 0;
   }
 }
 </script>

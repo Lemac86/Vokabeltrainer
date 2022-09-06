@@ -51,16 +51,20 @@ const alertString = ref("");
 function addVocabulary() {
   if (
     vocabularyList.value.findIndex(
-      (e) => e.german === vocabularyInputGerman.value
+      (e) => e.german.value === vocabularyInputGerman.value
     ) === -1
   ) {
     const vocabulary = {
-      timesAskedGerman: 0,
-      timesAskedSwedish: 0,
-      timesCorrectGerman: 0,
-      timesCorrectSwedish: 0,
-      german: vocabularyInputGerman.value,
-      swedish: vocabularyInputSwedish.value,
+      german: {
+        timesAsked: 0,
+        timesCorrect: 0,
+        value: vocabularyInputGerman.value,
+      },
+      swedish: {
+        timesAsked: 0,
+        timesCorrect: 0,
+        value: vocabularyInputSwedish.value,
+      },
     };
 
     vocabularyList.value.push(vocabulary);

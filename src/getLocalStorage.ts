@@ -1,12 +1,16 @@
 import { Ref, ref, watchEffect } from "vue";
 
 export interface Vocabulary {
-  timesAskedGerman: number;
-  timesAskedSwedish: number;
-  timesCorrectGerman: number;
-  timesCorrectSwedish: number;
-  german: string;
-  swedish: string;
+  german: {
+    timesAsked: number;
+    timesCorrect: number;
+    value: string;
+  };
+  swedish: {
+    timesAsked: number;
+    timesCorrect: number;
+    value: string;
+  };
 }
 
 export const vocabularyList = ref<Vocabulary[]>([]);

@@ -17,9 +17,9 @@
     <hr />
     <div class="vocabularyListWrap">
       <div class="vocabularyListGrid">
-        <template v-for="element of filteredList" :key="element.german">
-          <span class="span">{{ `${element.german}` }}</span>
-          <span class="span">{{ `${element.swedish}` }}</span>
+        <template v-for="element of filteredList" :key="element.german.value">
+          <span class="span">{{ `${element.german.value}` }}</span>
+          <span class="span">{{ `${element.swedish.value}` }}</span>
         </template>
       </div>
     </div>
@@ -41,8 +41,8 @@ const searchQuery = ref("");
 const filteredList = computed(() =>
   vocabularyList.value.filter(
     (e) =>
-      e.german.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      e.swedish.toLowerCase().includes(searchQuery.value.toLowerCase())
+      e.german.value.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      e.swedish.value.toLowerCase().includes(searchQuery.value.toLowerCase())
   )
 );
 

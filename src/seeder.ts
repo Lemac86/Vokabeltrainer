@@ -2,9 +2,9 @@ import { vocabularyList } from "./getLocalStorage";
 
 export function mutate() {
   for (let e of vocabularyList.value) {
-    e["timesAskedGerman"] = e["timesAskedGerman"] ?? 0;
-    e["timesAskedSwedish"] = e["timesAskedSwedish"] ?? 0;
-    e["timesCorrectGerman"] = e["timesCorrectGerman"] ?? 0;
-    e["timesCorrectSwedish"] = e["timesCorrectSwedish"] ?? 0;
+    e.german.timesAsked = e.german.timesAsked ?? 0;
+    e.swedish.timesAsked = e.swedish.timesAsked ?? 0;
+    e.german.timesCorrect = e.german.timesCorrect ?? 0;
+    e.swedish.timesCorrect = e.swedish.timesCorrect ?? 0;
   }
 }

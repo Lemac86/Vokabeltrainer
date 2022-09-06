@@ -45,16 +45,16 @@ const correct = ref<number | null>(null);
 
 function getSearchedForVocabulary() {
   let i = Math.floor(Math.random() * vocabularyList.value.length);
-  germanMeaning.value = vocabularyList.value[i].german;
-  swedishMeaning.value = vocabularyList.value[i].swedish;
+  germanMeaning.value = vocabularyList.value[i].german.value;
+  swedishMeaning.value = vocabularyList.value[i].swedish.value;
   let j, k;
   do {
     j = Math.floor(Math.random() * vocabularyList.value.length);
-    germanWrong1.value = vocabularyList.value[j].german;
-    swedishWrong1.value = vocabularyList.value[j].swedish;
+    germanWrong1.value = vocabularyList.value[j].german.value;
+    swedishWrong1.value = vocabularyList.value[j].swedish.value;
     k = Math.floor(Math.random() * vocabularyList.value.length);
-    germanWrong2.value = vocabularyList.value[k].german;
-    swedishWrong2.value = vocabularyList.value[k].swedish;
+    germanWrong2.value = vocabularyList.value[k].german.value;
+    swedishWrong2.value = vocabularyList.value[k].swedish.value;
   } while (i === j || i === k || j === k);
 
   if (language.value === "german") {
@@ -81,13 +81,13 @@ getSearchedForVocabulary();
 
 function pushButton() {
   let thisVocabulary = vocabularyList.value.find(
-    (e) => e.german === germanMeaning.value
+    (e) => e.german.value === germanMeaning.value
   );
   if (language.value === "german" && thisVocabulary) {
-    thisVocabulary.timesAskedGerman += 1;
+    thisVocabulary.german.timesAsked += 1;
   }
   if (language.value === "swedish" && thisVocabulary) {
-    thisVocabulary.timesAskedSwedish += 1;
+    thisVocabulary.swedish.timesAsked += 1;
   }
   if (
     selectedButton.value !== null &&
@@ -95,9 +95,9 @@ function pushButton() {
   ) {
     correct.value = 1;
     if (language.value === "german" && thisVocabulary) {
-      thisVocabulary.timesCorrectGerman += 1;
+      thisVocabulary.german.timesCorrect += 1;
     } else if (language.value === "swedish" && thisVocabulary) {
-      thisVocabulary.timesCorrectSwedish += 1;
+      thisVocabulary.swedish.timesCorrect += 1;
     }
   } else {
     correct.value = 0;
