@@ -7,7 +7,11 @@
       @click="(selectedButton = index), pushButton()"
       :class="[
         { selected: selectedButton === index },
-        { true: correct === 1 && selectedButton === index },
+        {
+          true:
+            correct !== null &&
+            answer === rightVocabulary?.[otherLanguage].value,
+        },
         { false: correct === 0 && selectedButton === index },
       ]"
       :disabled="disableButton"
@@ -19,7 +23,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "@vue/reactivity";
 import { ref, toRefs } from "vue";
 import { vocabularyList, Vocabulary } from "../getLocalStorage";
 
@@ -73,7 +76,7 @@ function getSearchedForVocabulary() {
     wrongVocabulary1.value[otherLanguage].value,
     wrongVocabulary2.value[otherLanguage].value
   );
-  sortedAnswerArr.value = [...answerArr.value].sort();
+  sortedAnswerArr.value = answerArr.value.shuffle();
 }
 
 getSearchedForVocabulary();
@@ -101,6 +104,8 @@ function pushButton() {
     correct.value = null;
   }, 1200);
 }
+
+// richtige Antwort anzeigen lassen!
 </script>
 
 <style lang="scss" scoped>

@@ -9,7 +9,6 @@ interface State {
     | "home"
     | "teststart"
     | "trainingStart"
-    | "training"
     | "statistik"
     | "vokabellisteSuche"
     | "vokabellisteHinzufügen";

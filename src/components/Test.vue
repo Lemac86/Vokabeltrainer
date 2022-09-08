@@ -73,7 +73,7 @@ function getSearchedForVocabulary() {
     wrongVocabulary1.value[otherLanguage].value,
     wrongVocabulary2.value[otherLanguage].value
   );
-  sortedAnswerArr.value = [...answerArr.value].sort();
+  sortedAnswerArr.value = answerArr.value.shuffle();
 }
 
 getSearchedForVocabulary();
