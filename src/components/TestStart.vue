@@ -1,6 +1,6 @@
 <template>
   <h1 class="notHomeH1">Test</h1>
-  <div v-if="!startTest">
+  <div v-if="!startTest && !endeTest">
     <div class="erklärungsText">
       <p>
         Es werden 100 Vokabeln abgefragt. <br />
@@ -40,14 +40,17 @@
   </div>
   <Test
     :language="languageSelected"
-    v-if="startTest && languageSelected"
+    v-if="startTest && languageSelected && !endeTest"
   ></Test>
+  <TestEnde v-if="endeTest"></TestEnde>
 </template>
 
 <script setup lang="ts">
 import { computed } from "@vue/reactivity";
 import { ref } from "vue";
 import Test from "./Test.vue";
+import TestEnde from "./TestEnde.vue";
+import { endeTest } from "../global";
 
 const startTest = ref(false);
 const languageSelected = ref<"german" | "swedish" | "">("");

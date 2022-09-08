@@ -19,9 +19,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "@vue/reactivity";
 import { ref, toRefs } from "vue";
 import { vocabularyList, Vocabulary } from "../getLocalStorage";
+import { endeTest } from "../global";
 
 const disableButton = ref(false);
 const props = defineProps<{
@@ -40,6 +40,7 @@ const answerArr = ref<string[]>([]);
 const sortedAnswerArr = ref<string[]>([]);
 const selectedButton = ref<number | null>(null);
 const correct = ref<number | null>(null);
+const questionsAsked = ref<number>(0);
 
 const rightVocabulary = ref<Vocabulary>();
 const wrongVocabulary1 = ref<Vocabulary>();
@@ -81,6 +82,7 @@ getSearchedForVocabulary();
 function pushButton() {
   if (rightVocabulary.value) {
     rightVocabulary.value[language.value].timesAsked += 1;
+    questionsAsked.value += 1;
     if (
       selectedButton.value !== null &&
       sortedAnswerArr.value[selectedButton.value] ===
@@ -99,6 +101,9 @@ function pushButton() {
     disableButton.value = false;
     selectedButton.value = null;
     correct.value = null;
+    if (questionsAsked.value === 4) {
+      endeTest.value = true;
+    }
   }, 1200);
 }
 </script>

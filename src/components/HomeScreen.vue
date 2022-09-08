@@ -21,6 +21,9 @@
 
 <script setup lang="ts">
 import { changeRoute } from "../router";
+import { endeTest } from "../global";
+
+endeTest.value = false;
 </script>
 
 <style lang="scss" scoped>
