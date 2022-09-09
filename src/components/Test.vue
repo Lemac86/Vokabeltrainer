@@ -21,7 +21,11 @@
 <script setup lang="ts">
 import { ref, toRefs } from "vue";
 import { vocabularyList, Vocabulary } from "../getLocalStorage";
-import { endeTest } from "../global";
+import {
+  endeTest,
+  questionsAsked,
+  correctAnswersPerTestround,
+} from "../global";
 
 const disableButton = ref(false);
 const props = defineProps<{
@@ -40,11 +44,13 @@ const answerArr = ref<string[]>([]);
 const sortedAnswerArr = ref<string[]>([]);
 const selectedButton = ref<number | null>(null);
 const correct = ref<number | null>(null);
-const questionsAsked = ref<number>(0);
 
 const rightVocabulary = ref<Vocabulary>();
 const wrongVocabulary1 = ref<Vocabulary>();
 const wrongVocabulary2 = ref<Vocabulary>();
+
+questionsAsked.value = 0;
+correctAnswersPerTestround.value = 0;
 
 function getSearchedForVocabulary() {
   rightVocabulary.value =
@@ -90,6 +96,7 @@ function pushButton() {
     ) {
       correct.value = 1;
       rightVocabulary.value[language.value].timesCorrect += 1;
+      correctAnswersPerTestround.value += 1;
     } else {
       correct.value = 0;
     }
@@ -101,7 +108,7 @@ function pushButton() {
     disableButton.value = false;
     selectedButton.value = null;
     correct.value = null;
-    if (questionsAsked.value === 4) {
+    if (questionsAsked.value === 1) {
       endeTest.value = true;
     }
   }, 1200);

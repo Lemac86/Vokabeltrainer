@@ -50,9 +50,9 @@ import { computed } from "@vue/reactivity";
 import { ref } from "vue";
 import Test from "./Test.vue";
 import TestEnde from "./TestEnde.vue";
-import { endeTest } from "../global";
+import { endeTest, startTest } from "../global";
 
-const startTest = ref(false);
+startTest.value = false;
 const languageSelected = ref<"german" | "swedish" | "">("");
 const startDisabled = computed(() => languageSelected.value === "");
 </script>
