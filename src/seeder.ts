@@ -1,4 +1,4 @@
-import { vocabularyList } from "./getLocalStorage";
+import { vocabularyList } from "./API";
 
 export function mutate() {
   for (let e of vocabularyList.value) {

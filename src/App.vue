@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { state } from "./router";
-import { fetchVocabularyList } from "./getLocalStorage";
+import { fetchVocabularyList } from "./API";
 import HomeButton from "./components/HomeButton.vue";
 import HomeScreen from "./components/HomeScreen.vue";
 import TestStart from "./components/TestStart.vue";

@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { ref, toRefs } from "vue";
-import { vocabularyList, Vocabulary } from "../getLocalStorage";
+import { vocabularyList, Vocabulary } from "../API";
 
 const disableButton = ref(false);
 const props = defineProps<{

@@ -35,7 +35,7 @@
 <script setup lang="ts">
 import { ref, Ref, watchEffect } from "vue";
 import { createToaster } from "@meforma/vue-toaster";
-import { vocabularyList } from "../getLocalStorage";
+import * as API from "../API";
 
 const toaster = createToaster({
   duration: 1500,
@@ -46,31 +46,14 @@ const toaster = createToaster({
 
 const vocabularyInputGerman = ref("");
 const vocabularyInputSwedish = ref("");
-const alertString = ref("");
 
 function addVocabulary() {
   if (
-    vocabularyList.value.findIndex(
-      (e) => e.german.value === vocabularyInputGerman.value
-    ) === -1
+    API.addVocabulary(vocabularyInputGerman.value, vocabularyInputSwedish.value)
   ) {
-    const vocabulary = {
-      german: {
-        timesAsked: 0,
-        timesCorrect: 0,
-        value: vocabularyInputGerman.value,
-      },
-      swedish: {
-        timesAsked: 0,
-        timesCorrect: 0,
-        value: vocabularyInputSwedish.value,
-      },
-    };
-
-    vocabularyList.value.push(vocabulary);
-
-    alertString.value = `<b>${vocabularyInputGerman.value} : ${vocabularyInputSwedish.value}</b> wurde hinzugefügt!`;
-    toaster.success(alertString.value);
+    toaster.success(
+      `<b>${vocabularyInputGerman.value} : ${vocabularyInputSwedish.value}</b> wurde hinzugefügt!`
+    );
   } else {
     alert(`You already added ${vocabularyInputGerman.value}!`);
   }

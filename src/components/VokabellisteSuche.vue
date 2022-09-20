@@ -35,7 +35,7 @@
 <script setup lang="ts">
 import { ref, readonly, computed } from "vue";
 import { changeRoute } from "../router";
-import { vocabularyList } from "../getLocalStorage";
+import { vocabularyList } from "../API";
 
 const searchQuery = ref("");
 const filteredList = computed(() =>

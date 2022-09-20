@@ -20,7 +20,8 @@
 
 <script setup lang="ts">
 import { ref, toRefs } from "vue";
-import { vocabularyList, Vocabulary } from "../getLocalStorage";
+import { Vocabulary, vocabularyList } from "../API";
+import * as API from "../API";
 import {
   endeTest,
   questionsAsked,
@@ -86,21 +87,21 @@ function getSearchedForVocabulary() {
 getSearchedForVocabulary();
 
 function pushButton() {
-  if (rightVocabulary.value) {
-    rightVocabulary.value[language.value].timesAsked += 1;
-    questionsAsked.value += 1;
-    if (
-      selectedButton.value !== null &&
-      sortedAnswerArr.value[selectedButton.value] ===
-        rightVocabulary.value[otherLanguage].value
-    ) {
-      correct.value = 1;
-      rightVocabulary.value[language.value].timesCorrect += 1;
-      correctAnswersPerTestround.value += 1;
-    } else {
-      correct.value = 0;
-    }
+  if (!rightVocabulary.value) return;
+  rightVocabulary.value[language.value].timesAsked += 1;
+  questionsAsked.value += 1;
+  if (
+    selectedButton.value !== null &&
+    sortedAnswerArr.value[selectedButton.value] ===
+      rightVocabulary.value[otherLanguage].value
+  ) {
+    correct.value = 1;
+    rightVocabulary.value[language.value].timesCorrect += 1;
+    correctAnswersPerTestround.value += 1;
+  } else {
+    correct.value = 0;
   }
+  API.editVocabulary(rightVocabulary.value);
 
   disableButton.value = true;
   setTimeout(() => {

@@ -47,7 +47,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { vocabularyList } from "../getLocalStorage";
+import { vocabularyList } from "../API";
 
 const germanVocabularyAsked = computed(() =>
   vocabularyList.value.reduce((x, y) => x + y.german.timesAsked, 0)
