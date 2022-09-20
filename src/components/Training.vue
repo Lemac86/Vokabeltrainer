@@ -4,13 +4,11 @@
   </div>
   <div class="answerOptions">
     <button
-      @click="(selectedButton = index), pushButton()"
+      @click="(selectedButton = index), checkGuess()"
       :class="[
         { selected: selectedButton === index },
         {
-          true:
-            correct !== null &&
-            answer === rightVocabulary?.[otherLanguage].value,
+          true: correct !== null && answer === rightVocabulary?.[otherLanguage].value,
         },
         { false: correct === 0 && selectedButton === index },
       ]"
@@ -23,20 +21,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs } from "vue";
-import { vocabularyList, Vocabulary } from "../API";
+import { ref, toRefs } from 'vue';
+import { vocabularyList, Vocabulary } from '../API';
+import * as API from '../API';
 
 const disableButton = ref(false);
 const props = defineProps<{
-  language: "german" | "swedish";
+  language: 'german' | 'swedish';
 }>();
 const { language } = toRefs(props);
 
-let otherLanguage: "german" | "swedish" = "german";
-if (language.value === "german") {
-  otherLanguage = "swedish";
+let otherLanguage: 'german' | 'swedish' = 'german';
+if (language.value === 'german') {
+  otherLanguage = 'swedish';
 } else {
-  otherLanguage = "german";
+  otherLanguage = 'german';
 }
 
 const answerArr = ref<string[]>([]);
@@ -49,24 +48,13 @@ const wrongVocabulary1 = ref<Vocabulary>();
 const wrongVocabulary2 = ref<Vocabulary>();
 
 function getSearchedForVocabulary() {
-  rightVocabulary.value =
-    vocabularyList.value[
-      Math.floor(Math.random() * vocabularyList.value.length)
-    ];
+  rightVocabulary.value = vocabularyList.value[Math.floor(Math.random() * vocabularyList.value.length)];
   do {
-    wrongVocabulary1.value =
-      vocabularyList.value[
-        Math.floor(Math.random() * vocabularyList.value.length)
-      ];
-    wrongVocabulary2.value =
-      vocabularyList.value[
-        Math.floor(Math.random() * vocabularyList.value.length)
-      ];
+    wrongVocabulary1.value = vocabularyList.value[Math.floor(Math.random() * vocabularyList.value.length)];
+    wrongVocabulary2.value = vocabularyList.value[Math.floor(Math.random() * vocabularyList.value.length)];
   } while (
-    rightVocabulary.value.german.value ===
-      wrongVocabulary1.value.german.value ||
-    rightVocabulary.value.german.value ===
-      wrongVocabulary2.value.german.value ||
+    rightVocabulary.value.german.value === wrongVocabulary1.value.german.value ||
+    rightVocabulary.value.german.value === wrongVocabulary2.value.german.value ||
     wrongVocabulary1.value.german.value === wrongVocabulary2.value.german.value
   );
 
@@ -81,20 +69,9 @@ function getSearchedForVocabulary() {
 
 getSearchedForVocabulary();
 
-function pushButton() {
-  if (rightVocabulary.value) {
-    rightVocabulary.value[language.value].timesAsked += 1;
-    if (
-      selectedButton.value !== null &&
-      sortedAnswerArr.value[selectedButton.value] ===
-        rightVocabulary.value[otherLanguage].value
-    ) {
-      correct.value = 1;
-      rightVocabulary.value[language.value].timesCorrect += 1;
-    } else {
-      correct.value = 0;
-    }
-  }
+function checkGuess() {
+  if (!rightVocabulary.value) return;
+  API.checkGuess(rightVocabulary.value, language.value, otherLanguage, selectedButton.value, correct.value, sortedAnswerArr.value);
 
   disableButton.value = true;
   setTimeout(() => {
@@ -116,7 +93,7 @@ function pushButton() {
   text-align: center;
   background-color: var(--colorYellow);
   color: var(--colorBlue);
-  font-family: "Indie Flower", cursive;
+  font-family: 'Indie Flower', cursive;
   font-weight: 700;
   font-size: 8vw;
   border: 0.1px solid var(--colorBlue);
@@ -141,7 +118,7 @@ button {
   border: 2px solid var(--colorYellow);
   border-radius: 15px;
   font-size: 8vw;
-  font-family: "Indie Flower", cursive;
+  font-family: 'Indie Flower', cursive;
   padding: 8px;
   box-shadow: 1px 3px 10px;
   transition: all 100ms;

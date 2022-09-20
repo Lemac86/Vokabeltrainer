@@ -4,7 +4,7 @@
   </div>
   <div class="answerOptions">
     <button
-      @click="(selectedButton = index), pushButton()"
+      @click="(selectedButton = index), checkGuess()"
       :class="[
         { selected: selectedButton === index },
         { true: correct === 1 && selectedButton === index },
@@ -86,7 +86,7 @@ function getSearchedForVocabulary() {
 
 getSearchedForVocabulary();
 
-function pushButton() {
+function checkGuess() {
   if (!rightVocabulary.value) return;
   rightVocabulary.value[language.value].timesAsked += 1;
   questionsAsked.value += 1;

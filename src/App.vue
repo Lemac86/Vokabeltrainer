@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { state } from "./router";
-import { fetchVocabularyList } from "./API";
+import { fetchVocabularyListData } from "./API";
 import HomeButton from "./components/HomeButton.vue";
 import HomeScreen from "./components/HomeScreen.vue";
 import TestStart from "./components/TestStart.vue";
@@ -24,7 +24,7 @@ import VokabellisteSuche from "./components/VokabellisteSuche.vue";
 import Statistik from "./components/Statistik.vue";
 import { mutate } from "./seeder";
 
-fetchVocabularyList();
+fetchVocabularyListData();
 mutate();
 </script>
 
