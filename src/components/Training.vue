@@ -65,10 +65,10 @@ function getSearchedForVocabulary() {
 
 getSearchedForVocabulary();
 
-function checkGuess() {
+async function checkGuess() {
   if (!rightVocabulary.value || typeof selectedButton.value !== 'number') return;
   let checkSelectedButton = sortedAnswerArr.value[selectedButton.value];
-  correct.value = API.checkGuess(rightVocabulary.value, language.value, otherLanguage.value, checkSelectedButton, correct.value);
+  correct.value = await API.checkGuess(rightVocabulary.value, language.value, otherLanguage.value, checkSelectedButton, correct.value);
 
   disableButton.value = true;
   setTimeout(() => {

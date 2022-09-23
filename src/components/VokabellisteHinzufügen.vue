@@ -33,44 +33,39 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref, watchEffect } from "vue";
-import { createToaster } from "@meforma/vue-toaster";
-import * as API from "../API";
+import { ref, Ref, watchEffect } from 'vue';
+import { createToaster } from '@meforma/vue-toaster';
+import * as API from '../API';
 
-const toaster = createToaster({
+let toaster = createToaster({
   duration: 1500,
-  position: "top",
+  position: 'top',
 
   /* options */
 });
 
-const vocabularyInputGerman = ref("");
-const vocabularyInputSwedish = ref("");
+const vocabularyInputGerman = ref('');
+const vocabularyInputSwedish = ref('');
 
-function addVocabulary() {
-  if (
-    API.addVocabulary(vocabularyInputGerman.value, vocabularyInputSwedish.value)
-  ) {
-    toaster.success(
-      `<b>${vocabularyInputGerman.value} : ${vocabularyInputSwedish.value}</b> wurde hinzugefügt!`
-    );
+async function addVocabulary() {
+  if (await API.addVocabulary(vocabularyInputGerman.value, vocabularyInputSwedish.value)) {
+    toaster.success(`<b>${vocabularyInputGerman.value} : ${vocabularyInputSwedish.value}</b> wurde hinzugefügt!`);
   } else {
-    alert(`You already added ${vocabularyInputGerman.value}!`);
+    alert(`You already added ${vocabularyInputGerman.value} or Your Database has been corrupted! Zwinkersmiley!`);
   }
-  vocabularyInputGerman.value = "";
-  vocabularyInputSwedish.value = "";
+  vocabularyInputGerman.value = '';
+  vocabularyInputSwedish.value = '';
 }
 </script>
 
 <style lang="scss" scoped>
 .addVocabularyDiv {
-  font-family: "Indie Flower", cursive;
+  font-family: 'Indie Flower', cursive;
   color: var(--colorYellow);
   margin-left: 12px;
   padding-bottom: 20px;
   font-size: min(5vw, 40px);
-  text-shadow: -0.5px 0 black, 0 0.5px black, 1px 0 black, 0 -0.5px black,
-    1.5px 1px 2px black;
+  text-shadow: -0.5px 0 black, 0 0.5px black, 1px 0 black, 0 -0.5px black, 1.5px 1px 2px black;
 }
 
 .textInputDiv {
@@ -87,7 +82,7 @@ function addVocabulary() {
   width: 60vw;
   background-color: var(--colorYellow);
   color: var(--colorBlue);
-  font-family: "Indie Flower", cursive;
+  font-family: 'Indie Flower', cursive;
   font-size: 1em;
   font-weight: 700;
   padding: 0 5px;
@@ -123,14 +118,13 @@ function addVocabulary() {
   margin-left: calc(50% - 35vw);
   margin-top: 15vh;
   font-weight: 700;
-  font-family: "Indie Flower", cursive;
+  font-family: 'Indie Flower', cursive;
   font-size: 35px;
   background-color: var(--colorYellow);
   color: var(--colorBlue);
   border: 0.1px solid var(--colorBlue);
   border-radius: 25px;
-  transition: background-color 500ms, color 500ms, border-color 50ms,
-    transform 200ms;
+  transition: background-color 500ms, color 500ms, border-color 50ms, transform 200ms;
   &:hover {
     background-color: var(--colorBlue);
     color: var(--colorYellow);

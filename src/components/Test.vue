@@ -69,10 +69,10 @@ function getSearchedForVocabulary() {
 
 getSearchedForVocabulary();
 
-function checkGuess() {
+async function checkGuess() {
   if (!rightVocabulary.value || typeof selectedButton.value !== 'number') return;
   let checkSelectedButton = sortedAnswerArr.value[selectedButton.value];
-  correct.value = API.checkGuess(rightVocabulary.value, language.value, otherLanguage.value, checkSelectedButton, correct.value);
+  correct.value = await API.checkGuess(rightVocabulary.value, language.value, otherLanguage.value, checkSelectedButton, correct.value);
   questionsAsked.value += 1;
   if (selectedButton.value !== null && sortedAnswerArr.value[selectedButton.value] === rightVocabulary.value[otherLanguage.value].value) {
     correctAnswersPerTestround.value += 1;
@@ -83,7 +83,7 @@ function checkGuess() {
     disableButton.value = false;
     selectedButton.value = null;
     correct.value = null;
-    if (questionsAsked.value === 1) {
+    if (questionsAsked.value === 5) {
       endeTest.value = true;
     }
   }, 1200);

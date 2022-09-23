@@ -19,11 +19,7 @@
     </h3>
     <h3>Insgesamt</h3>
     <h3 class="wrong">
-      {{
-        germanVocabularyAsked -
-        germanVocabularyCorrect +
-        (swedishVocabularyAsked - swedishVocabularyCorrect)
-      }}
+      {{ germanVocabularyAsked - germanVocabularyCorrect + (swedishVocabularyAsked - swedishVocabularyCorrect) }}
     </h3>
     <h3 class="right">
       {{ germanVocabularyCorrect }}
@@ -39,36 +35,22 @@
     </h3>
   </div>
   <div class="reset">
-    <button class="resetButton" @click="resetStatistics()">
-      Statistik zurücksetzen
-    </button>
+    <button class="resetButton" @click="resetStatistics()">Statistik zurücksetzen</button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import { vocabularyList } from "../API";
+import { computed } from 'vue';
+import { vocabularyList } from '../API';
+import * as API from '../API';
 
-const germanVocabularyAsked = computed(() =>
-  vocabularyList.value.reduce((x, y) => x + y.german.timesAsked, 0)
-);
-const swedishVocabularyAsked = computed(() =>
-  vocabularyList.value.reduce((x, y) => x + y.swedish.timesAsked, 0)
-);
-const germanVocabularyCorrect = computed(() =>
-  vocabularyList.value.reduce((x, y) => x + y.german.timesCorrect, 0)
-);
-const swedishVocabularyCorrect = computed(() =>
-  vocabularyList.value.reduce((x, y) => x + y.swedish.timesCorrect, 0)
-);
+const germanVocabularyAsked = computed(() => vocabularyList.value.reduce((x, y) => x + y.german.timesAsked, 0));
+const swedishVocabularyAsked = computed(() => vocabularyList.value.reduce((x, y) => x + y.swedish.timesAsked, 0));
+const germanVocabularyCorrect = computed(() => vocabularyList.value.reduce((x, y) => x + y.german.timesCorrect, 0));
+const swedishVocabularyCorrect = computed(() => vocabularyList.value.reduce((x, y) => x + y.swedish.timesCorrect, 0));
 
-function resetStatistics() {
-  for (let e of vocabularyList.value) {
-    e.german.timesAsked = 0;
-    e.swedish.timesAsked = 0;
-    e.german.timesCorrect = 0;
-    e.swedish.timesCorrect = 0;
-  }
+async function resetStatistics() {
+ await API.resetStatistics();
 }
 </script>
 <style lang="scss" scoped>
@@ -89,21 +71,19 @@ div {
 }
 h2 {
   text-decoration: underline;
-  font-family: "Indie Flower", cursive;
+  font-family: 'Indie Flower', cursive;
   color: var(--colorYellow);
   font-size: 2.6vh;
   text-align: center;
-  text-shadow: -0.5px 0 black, 0 0.5px black, 1px 0 black, 0 -0.5px black,
-    1.5px 1px 2px black;
+  text-shadow: -0.5px 0 black, 0 0.5px black, 1px 0 black, 0 -0.5px black, 1.5px 1px 2px black;
 }
 h3 {
   margin: 4px 0;
-  font-family: "Indie Flower", cursive;
+  font-family: 'Indie Flower', cursive;
   color: var(--colorYellow);
   font-size: 2.4vh;
   text-align: center;
-  text-shadow: -0.5px 0 black, 0 0.5px black, 1px 0 black, 0 -0.5px black,
-    1.5px 1px 2px black;
+  text-shadow: -0.5px 0 black, 0 0.5px black, 1px 0 black, 0 -0.5px black, 1.5px 1px 2px black;
   font-weight: 100;
 }
 .right {
@@ -112,8 +92,7 @@ h3 {
   background-color: green;
   border: 0.1px solid green;
   border-radius: 25px;
-  box-shadow: -0.5px 0 var(--colorYellow), 0 0.5px var(--colorYellow),
-    1px 0 var(--colorYellow), 0 -0.5px var(--colorYellow),
+  box-shadow: -0.5px 0 var(--colorYellow), 0 0.5px var(--colorYellow), 1px 0 var(--colorYellow), 0 -0.5px var(--colorYellow),
     1px 0.5px 1px var(--colorYellow);
 }
 
@@ -122,8 +101,7 @@ h3 {
   background-color: rgb(179, 6, 6);
   border: 0.1px solid rgb(179, 6, 6);
   border-radius: 25px;
-  box-shadow: -0.5px 0 var(--colorYellow), 0 0.5px var(--colorYellow),
-    1px 0 var(--colorYellow), 0 -0.5px var(--colorYellow),
+  box-shadow: -0.5px 0 var(--colorYellow), 0 0.5px var(--colorYellow), 1px 0 var(--colorYellow), 0 -0.5px var(--colorYellow),
     1px 0.5px 1px var(--colorYellow);
 }
 .resetButton {
@@ -132,7 +110,7 @@ h3 {
   border: 2px solid var(--colorYellow);
   border-radius: 15px;
   font-size: 3vh;
-  font-family: "Indie Flower", cursive;
+  font-family: 'Indie Flower', cursive;
   padding: 10px 15px;
   box-shadow: 1px 3px 10px;
   transition: all 100ms;
