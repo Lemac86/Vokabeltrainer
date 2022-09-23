@@ -1,4 +1,4 @@
-import { computed, ref, watchEffect } from 'vue';
+import { computed, ref } from 'vue';
 
 export interface Vocabulary {
   id: string;
@@ -48,6 +48,7 @@ export function addVocabulary(vocabularyInputGerman: string, vocabularyInputSwed
     };
 
     vocabularyListData.value.push(vocabulary);
+    localStorage.setItem(`storageVocabulary`, JSON.stringify(vocabularyListData.value));
 
     return true;
   } else {
@@ -56,8 +57,6 @@ export function addVocabulary(vocabularyInputGerman: string, vocabularyInputSwed
 }
 
 export function editVocabulary(vocabulary: Vocabulary) {
-  localStorage.setItem(`storageVocabulary`, JSON.stringify(vocabularyListData.value));
-
   vocabularyListData.value.find(e => e.id === vocabulary.id);
 }
 
@@ -65,17 +64,20 @@ export function checkGuess(
   vocabulary: Vocabulary,
   language: 'german' | 'swedish',
   otherLanguage: 'german' | 'swedish',
-  selectedButton: number | null,
-  correct: number | null,
-  sortedAnswerArr: string[]
+  checkedAnswer: string,
+  correct: number | null
 ) {
   if (vocabulary) {
     vocabulary[language].timesAsked += 1;
-    if (selectedButton !== null && sortedAnswerArr[selectedButton] === vocabulary[otherLanguage].value) {
+    if (checkedAnswer === vocabulary[otherLanguage].value) {
       correct = 1;
       vocabulary[language].timesCorrect += 1;
     } else {
       correct = 0;
     }
   }
+  let checkedVocabulary = vocabularyListData.value.find(e => e.id === vocabulary.id);
+  if (checkedVocabulary) checkedVocabulary = vocabulary;
+  localStorage.setItem(`storageVocabulary`, JSON.stringify(vocabularyListData.value));
+  return correct;
 }

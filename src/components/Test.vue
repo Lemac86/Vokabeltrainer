@@ -7,7 +7,9 @@
       @click="(selectedButton = index), checkGuess()"
       :class="[
         { selected: selectedButton === index },
-        { true: correct === 1 && selectedButton === index },
+        {
+          true: correct !== null && answer === rightVocabulary?.[otherLanguage].value,
+        },
         { false: correct === 0 && selectedButton === index },
       ]"
       :disabled="disableButton"
@@ -19,27 +21,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs } from "vue";
-import { Vocabulary, vocabularyList } from "../API";
-import * as API from "../API";
-import {
-  endeTest,
-  questionsAsked,
-  correctAnswersPerTestround,
-} from "../global";
+import { ref, toRefs } from 'vue';
+import { Vocabulary, vocabularyList } from '../API';
+import * as API from '../API';
+import { endeTest, questionsAsked, correctAnswersPerTestround } from '../global';
+import { computed } from '@vue/reactivity';
 
 const disableButton = ref(false);
 const props = defineProps<{
-  language: "german" | "swedish";
+  language: 'german' | 'swedish';
 }>();
 const { language } = toRefs(props);
 
-let otherLanguage: "german" | "swedish" = "german";
-if (language.value === "german") {
-  otherLanguage = "swedish";
-} else {
-  otherLanguage = "german";
-}
+const otherLanguage = computed(() => (language.value === 'german' ? 'swedish' : 'german'));
 
 const answerArr = ref<string[]>([]);
 const sortedAnswerArr = ref<string[]>([]);
@@ -54,32 +48,21 @@ questionsAsked.value = 0;
 correctAnswersPerTestround.value = 0;
 
 function getSearchedForVocabulary() {
-  rightVocabulary.value =
-    vocabularyList.value[
-      Math.floor(Math.random() * vocabularyList.value.length)
-    ];
+  rightVocabulary.value = vocabularyList.value[Math.floor(Math.random() * vocabularyList.value.length)];
   do {
-    wrongVocabulary1.value =
-      vocabularyList.value[
-        Math.floor(Math.random() * vocabularyList.value.length)
-      ];
-    wrongVocabulary2.value =
-      vocabularyList.value[
-        Math.floor(Math.random() * vocabularyList.value.length)
-      ];
+    wrongVocabulary1.value = vocabularyList.value[Math.floor(Math.random() * vocabularyList.value.length)];
+    wrongVocabulary2.value = vocabularyList.value[Math.floor(Math.random() * vocabularyList.value.length)];
   } while (
-    rightVocabulary.value.german.value ===
-      wrongVocabulary1.value.german.value ||
-    rightVocabulary.value.german.value ===
-      wrongVocabulary2.value.german.value ||
+    rightVocabulary.value.german.value === wrongVocabulary1.value.german.value ||
+    rightVocabulary.value.german.value === wrongVocabulary2.value.german.value ||
     wrongVocabulary1.value.german.value === wrongVocabulary2.value.german.value
   );
 
   answerArr.value = [];
   answerArr.value.push(
-    rightVocabulary.value[otherLanguage].value,
-    wrongVocabulary1.value[otherLanguage].value,
-    wrongVocabulary2.value[otherLanguage].value
+    rightVocabulary.value[otherLanguage.value].value,
+    wrongVocabulary1.value[otherLanguage.value].value,
+    wrongVocabulary2.value[otherLanguage.value].value
   );
   sortedAnswerArr.value = answerArr.value.shuffle();
 }
@@ -87,22 +70,13 @@ function getSearchedForVocabulary() {
 getSearchedForVocabulary();
 
 function checkGuess() {
-  if (!rightVocabulary.value) return;
-  rightVocabulary.value[language.value].timesAsked += 1;
+  if (!rightVocabulary.value || typeof selectedButton.value !== 'number') return;
+  let checkSelectedButton = sortedAnswerArr.value[selectedButton.value];
+  correct.value = API.checkGuess(rightVocabulary.value, language.value, otherLanguage.value, checkSelectedButton, correct.value);
   questionsAsked.value += 1;
-  if (
-    selectedButton.value !== null &&
-    sortedAnswerArr.value[selectedButton.value] ===
-      rightVocabulary.value[otherLanguage].value
-  ) {
-    correct.value = 1;
-    rightVocabulary.value[language.value].timesCorrect += 1;
+  if (selectedButton.value !== null && sortedAnswerArr.value[selectedButton.value] === rightVocabulary.value[otherLanguage.value].value) {
     correctAnswersPerTestround.value += 1;
-  } else {
-    correct.value = 0;
   }
-  API.editVocabulary(rightVocabulary.value);
-
   disableButton.value = true;
   setTimeout(() => {
     getSearchedForVocabulary();
@@ -124,7 +98,7 @@ function checkGuess() {
   text-align: center;
   background-color: var(--colorYellow);
   color: var(--colorBlue);
-  font-family: "Indie Flower", cursive;
+  font-family: 'Indie Flower', cursive;
   font-weight: 700;
   font-size: 8vw;
   border: 0.1px solid var(--colorBlue);
@@ -149,7 +123,7 @@ button {
   border: 2px solid var(--colorYellow);
   border-radius: 15px;
   font-size: 8vw;
-  font-family: "Indie Flower", cursive;
+  font-family: 'Indie Flower', cursive;
   padding: 8px;
   box-shadow: 1px 3px 10px;
   transition: all 100ms;

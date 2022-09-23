@@ -24,6 +24,7 @@
 import { ref, toRefs } from 'vue';
 import { vocabularyList, Vocabulary } from '../API';
 import * as API from '../API';
+import { computed } from '@vue/reactivity';
 
 const disableButton = ref(false);
 const props = defineProps<{
@@ -31,12 +32,7 @@ const props = defineProps<{
 }>();
 const { language } = toRefs(props);
 
-let otherLanguage: 'german' | 'swedish' = 'german';
-if (language.value === 'german') {
-  otherLanguage = 'swedish';
-} else {
-  otherLanguage = 'german';
-}
+const otherLanguage = computed(() => (language.value === 'german' ? 'swedish' : 'german'));
 
 const answerArr = ref<string[]>([]);
 const sortedAnswerArr = ref<string[]>([]);
@@ -60,9 +56,9 @@ function getSearchedForVocabulary() {
 
   answerArr.value = [];
   answerArr.value.push(
-    rightVocabulary.value[otherLanguage].value,
-    wrongVocabulary1.value[otherLanguage].value,
-    wrongVocabulary2.value[otherLanguage].value
+    rightVocabulary.value[otherLanguage.value].value,
+    wrongVocabulary1.value[otherLanguage.value].value,
+    wrongVocabulary2.value[otherLanguage.value].value
   );
   sortedAnswerArr.value = answerArr.value.shuffle();
 }
@@ -70,8 +66,9 @@ function getSearchedForVocabulary() {
 getSearchedForVocabulary();
 
 function checkGuess() {
-  if (!rightVocabulary.value) return;
-  API.checkGuess(rightVocabulary.value, language.value, otherLanguage, selectedButton.value, correct.value, sortedAnswerArr.value);
+  if (!rightVocabulary.value || typeof selectedButton.value !== 'number') return;
+  let checkSelectedButton = sortedAnswerArr.value[selectedButton.value];
+  correct.value = API.checkGuess(rightVocabulary.value, language.value, otherLanguage.value, checkSelectedButton, correct.value);
 
   disableButton.value = true;
   setTimeout(() => {
@@ -81,8 +78,6 @@ function checkGuess() {
     correct.value = null;
   }, 1200);
 }
-
-// richtige Antwort anzeigen lassen!
 </script>
 
 <style lang="scss" scoped>
