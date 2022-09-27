@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { state } from './router';
-import { fetchVocabularyListData, mutate } from './API';
+import { fetchVocabularyListData } from './API';
 import HomeButton from './components/HomeButton.vue';
 import HomeScreen from './components/HomeScreen.vue';
 import TestStart from './components/TestStart.vue';
@@ -23,7 +23,7 @@ import Statistik from './components/Statistik.vue';
   await fetchVocabularyListData();
 })();
 
-mutate();
+// mutate();
 </script>
 
 <style lang="scss">
