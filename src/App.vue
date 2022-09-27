@@ -19,7 +19,9 @@ import VokabellisteHinzufügen from './components/VokabellisteHinzufügen.vue';
 import VokabellisteSuche from './components/VokabellisteSuche.vue';
 import Statistik from './components/Statistik.vue';
 
-await fetchVocabularyListData();
+(async () => {
+  await fetchVocabularyListData();
+})();
 
 mutate();
 </script>

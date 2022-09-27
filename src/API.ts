@@ -29,13 +29,14 @@ export async function fetchVocabularyListData() {
   if (importArr) {
     if (JSON.parse(importArr) !== null) vocabularyListData.value = JSON.parse(importArr);
   }
-  // watchEffect(() =>
-  //   localStorage.setItem(
-  //     `storageVocabulary`,
-  //     JSON.stringify(vocabularyListData.value)
-  //   )
-  // );
 }
+
+// watchEffect(() =>
+//   localStorage.setItem(
+//     `storageVocabulary`,
+//     JSON.stringify(vocabularyListData.value)
+//   )
+// );
 
 export function mutate() {
   for (let e of vocabularyListData.value) {
