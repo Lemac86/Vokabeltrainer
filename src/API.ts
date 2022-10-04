@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue';
 import { createToaster } from '@meforma/vue-toaster';
-import { addDoc, collection, doc, DocumentData, getDocs, getFirestore, QueryDocumentSnapshot, setDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, DocumentData, getDocs, getFirestore, QueryDocumentSnapshot, setDoc, updateDoc } from 'firebase/firestore';
 
 let toaster = createToaster({
   duration: 1500,
@@ -91,39 +91,58 @@ export async function checkGuess(
   checkedAnswer: string,
   correct: number | null
 ) {
+  let temporaryVocabulary = vocabulary;
   if (vocabulary) {
-    vocabulary[language].timesAsked += 1;
-    if (checkedAnswer === vocabulary[otherLanguage].value) {
+    temporaryVocabulary[language].timesAsked += 1;
+    if (checkedAnswer === temporaryVocabulary[otherLanguage].value) {
       correct = 1;
-      vocabulary[language].timesCorrect += 1;
+      temporaryVocabulary[language].timesCorrect += 1;
     } else {
       correct = 0;
     }
+    await updateDoc(doc(getFirestore(), 'Vokabeln', vocabulary.id), temporaryVocabulary);
   }
-  let checkedVocabulary = vocabularyListData.value.find(e => e.id === vocabulary.id);
-  if (checkedVocabulary) checkedVocabulary = vocabulary;
+  let checkedVocabulary = vocabularyListData.value.find(e => e.id === temporaryVocabulary.id);
+  if (checkedVocabulary) checkedVocabulary = temporaryVocabulary;
   try {
-    localStorage.setItem(`storageVocabulary`, JSON.stringify(vocabularyListData.value));
+    await updateDoc(doc(getFirestore(), 'Vokabeln', e.id), e);
   } catch (error) {
-    toaster.error(`<b>Saving your data is creating an error!</b>`);
+    toaster.error(`<b>Checking created an error!</b>`);
     console.error(error);
   }
   return correct;
 }
 
+// export async function resetStatistics() {
+//   let temporaryVocabularyListData = JSON.parse(JSON.stringify(vocabularyListData.value));
+//   for (let e of temporaryVocabularyListData) {
+//     e.german.timesAsked = 0;
+//     e.swedish.timesAsked = 0;
+//     e.german.timesCorrect = 0;
+//     e.swedish.timesCorrect = 0;
+//   }
+//   try {
+//     localStorage.setItem(`storageVocabulary`, JSON.stringify(temporaryVocabularyListData));
+//     vocabularyListData.value = temporaryVocabularyListData;
+//   } catch (error) {
+//     toaster.error(`<b>Saving your data is creating an error!</b>`);
+//     console.error(error);
+//   }
+// }
+
 export async function resetStatistics() {
-  let temporaryVocabularyListData = JSON.parse(JSON.stringify(vocabularyListData.value));
-  for (let e of temporaryVocabularyListData) {
-    e.german.timesAsked = 0;
-    e.swedish.timesAsked = 0;
-    e.german.timesCorrect = 0;
-    e.swedish.timesCorrect = 0;
-  }
+  let temporaryVocabularyListData = vocabularyList.value;
   try {
-    localStorage.setItem(`storageVocabulary`, JSON.stringify(temporaryVocabularyListData));
-    vocabularyListData.value = temporaryVocabularyListData;
+    for (let e of temporaryVocabularyListData) {
+      e.german.timesAsked = 0;
+      e.swedish.timesAsked = 0;
+      e.german.timesCorrect = 0;
+      e.swedish.timesCorrect = 0;
+      await updateDoc(doc(getFirestore(), 'Vokabeln', e.id), e);
+    }
+    fetchVocabularyListData();
   } catch (error) {
-    toaster.error(`<b>Saving your data is creating an error!</b>`);
+    toaster.error(`<b>Resetting your statistics is creating an error!</b>`);
     console.error(error);
   }
 }
