@@ -22,14 +22,14 @@
 
 <script setup lang="ts">
 import { ref, toRefs } from 'vue';
-import { Vocabulary, vocabularyList } from '../API';
+import { Vocabulary, vocabularyList, Language } from '../API';
 import * as API from '../API';
 import { endeTest, questionsAsked, correctAnswersPerTestround } from '../global';
 import { computed } from '@vue/reactivity';
 
 const disableButton = ref(false);
 const props = defineProps<{
-  language: 'german' | 'swedish';
+  language: Language;
 }>();
 const { language } = toRefs(props);
 
@@ -72,7 +72,7 @@ getSearchedForVocabulary();
 async function checkGuess() {
   if (!rightVocabulary.value || typeof selectedButton.value !== 'number') return;
   let checkSelectedButton = sortedAnswerArr.value[selectedButton.value];
-  correct.value = await API.checkGuess(rightVocabulary.value, language.value, otherLanguage.value, checkSelectedButton, correct.value);
+  correct.value = await API.checkGuess(rightVocabulary.value, language.value, otherLanguage.value, checkSelectedButton);
   questionsAsked.value += 1;
   if (selectedButton.value !== null && sortedAnswerArr.value[selectedButton.value] === rightVocabulary.value[otherLanguage.value].value) {
     correctAnswersPerTestround.value += 1;
@@ -83,7 +83,7 @@ async function checkGuess() {
     disableButton.value = false;
     selectedButton.value = null;
     correct.value = null;
-    if (questionsAsked.value === 5) {
+    if (questionsAsked.value === 100) {
       endeTest.value = true;
     }
   }, 1200);

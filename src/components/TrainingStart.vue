@@ -40,9 +40,10 @@
 import { computed } from "@vue/reactivity";
 import { ref } from "vue";
 import Training from "./Training.vue";
+import { Language } from "../API";
 
 const startTraining = ref(false);
-const languageSelected = ref<"german" | "swedish" | "">("");
+const languageSelected = ref<Language | "">("");
 const startDisabled = computed(() => languageSelected.value === "");
 </script>
 

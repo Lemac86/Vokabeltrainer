@@ -1,13 +1,26 @@
 import { computed, ref } from 'vue';
 import { createToaster } from '@meforma/vue-toaster';
-import { addDoc, collection, doc, DocumentData, getDocs, getFirestore, QueryDocumentSnapshot, setDoc, updateDoc } from 'firebase/firestore';
+import {
+  addDoc,
+  AddPrefixToKeys,
+  collection,
+  doc,
+  DocumentData,
+  getDocs,
+  getFirestore,
+  QueryDocumentSnapshot,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
 
 let toaster = createToaster({
   duration: 1500,
   position: 'top',
 });
 
-export interface Vocabulary {
+export type Language = 'german' | 'swedish';
+
+export type Vocabulary = {
   id: string;
   german: {
     timesAsked: number;
@@ -19,7 +32,7 @@ export interface Vocabulary {
     timesCorrect: number;
     value: string;
   };
-}
+};
 
 const vocabularyListData = ref<Vocabulary[]>([]);
 
@@ -84,31 +97,22 @@ export async function addVocabulary(vocabularyInputGerman: string, vocabularyInp
   }
 }
 
-export async function checkGuess(
-  vocabulary: Vocabulary,
-  language: 'german' | 'swedish',
-  otherLanguage: 'german' | 'swedish',
-  checkedAnswer: string,
-  correct: number | null
-) {
-  let temporaryVocabulary = vocabulary;
-  if (vocabulary) {
+export async function checkGuess(vocabulary: Vocabulary, language: Language, otherLanguage: 'german' | 'swedish', checkedAnswer: string) {
+  let correct: number = 0;
+  let temporaryVocabulary: Vocabulary = JSON.parse(JSON.stringify(vocabulary));
+  if (temporaryVocabulary) {
     temporaryVocabulary[language].timesAsked += 1;
     if (checkedAnswer === temporaryVocabulary[otherLanguage].value) {
       correct = 1;
       temporaryVocabulary[language].timesCorrect += 1;
-    } else {
-      correct = 0;
     }
-    await updateDoc(doc(getFirestore(), 'Vokabeln', vocabulary.id), temporaryVocabulary);
-  }
-  let checkedVocabulary = vocabularyListData.value.find(e => e.id === temporaryVocabulary.id);
-  if (checkedVocabulary) checkedVocabulary = temporaryVocabulary;
-  try {
-    await updateDoc(doc(getFirestore(), 'Vokabeln', e.id), e);
-  } catch (error) {
-    toaster.error(`<b>Checking created an error!</b>`);
-    console.error(error);
+    try {
+      await updateDoc(doc(getFirestore(), 'Vokabeln', temporaryVocabulary.id), temporaryVocabulary);
+    } catch (error) {
+      toaster.error(`<b>Checking created an error!</b>`);
+      console.error(error);
+    }
+    fetchVocabularyListData();
   }
   return correct;
 }

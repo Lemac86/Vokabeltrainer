@@ -22,13 +22,13 @@
 
 <script setup lang="ts">
 import { ref, toRefs } from 'vue';
-import { vocabularyList, Vocabulary } from '../API';
+import { vocabularyList, Vocabulary, Language } from '../API';
 import * as API from '../API';
 import { computed } from '@vue/reactivity';
 
 const disableButton = ref(false);
 const props = defineProps<{
-  language: 'german' | 'swedish';
+  language: Language;
 }>();
 const { language } = toRefs(props);
 
@@ -68,7 +68,7 @@ getSearchedForVocabulary();
 async function checkGuess() {
   if (!rightVocabulary.value || typeof selectedButton.value !== 'number') return;
   let checkSelectedButton = sortedAnswerArr.value[selectedButton.value];
-  correct.value = await API.checkGuess(rightVocabulary.value, language.value, otherLanguage.value, checkSelectedButton, correct.value);
+  correct.value = await API.checkGuess(rightVocabulary.value, language.value, otherLanguage.value, checkSelectedButton);
 
   disableButton.value = true;
   setTimeout(() => {

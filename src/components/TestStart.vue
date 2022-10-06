@@ -51,9 +51,10 @@ import { ref } from "vue";
 import Test from "./Test.vue";
 import TestEnde from "./TestEnde.vue";
 import { endeTest, startTest } from "../global";
+import { Language } from "../API";
 
 startTest.value = false;
-const languageSelected = ref<"german" | "swedish" | "">("");
+const languageSelected = ref<Language | "">("");
 const startDisabled = computed(() => languageSelected.value === "");
 </script>
 
