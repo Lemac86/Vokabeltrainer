@@ -1,9 +1,1 @@
-{
-    "name": "vokabeltrainer",
-    "short_name": "vokabeltrainer",
-    "start_url": "/Vokabeltrainer/",
-    "display": "standalone",
-    "background_color": "#ffffff",
-    "lang": "en",
-    "scope": "/Vokabeltrainer/"
-}
+{"name":"Vokabeltrainer","short_name":"VokAppel","start_url":"/Vokabeltrainer/","display":"standalone","background_color":"#ffffff","lang":"en","scope":"/Vokabeltrainer/","description":"Awesome Vokabeltrainer-App","theme_color":"#ffffff","icons":[{"src":"public/Bud.png","sizes":"200x200","type":"image/png"}]}
