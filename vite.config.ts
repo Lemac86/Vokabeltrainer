@@ -17,7 +17,7 @@ export default defineConfig({
         icons: [
           {
             src: "public/Bud.png",
-            sizes: '149x169',
+            sizes: '200x200',
             type: 'image/png'
           }
         ]
