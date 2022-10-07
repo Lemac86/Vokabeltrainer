@@ -16,7 +16,7 @@ export default defineConfig({
         theme_color: '#ffffff',
         icons: [
           {
-            src: "public/Bud.png",
+            src: "Bud.png",
             sizes: '200x200',
             type: 'image/png'
           }
