@@ -10,8 +10,9 @@ import {
   getFirestore,
   QueryDocumentSnapshot,
   setDoc,
-  updateDoc,
+  updateDoc, enableIndexedDbPersistence
 } from 'firebase/firestore';
+
 
 let toaster = createToaster({
   duration: 1500,

@@ -13,7 +13,7 @@ export default defineConfig({
         name: 'Vokabeltrainer',
         short_name: 'VokAppel',
         description: 'Awesome Vokabeltrainer-App',
-        theme_color: '#ffffff',
+        theme_color: '#000',
         icons: [
           {
             src: "Bud.png",
