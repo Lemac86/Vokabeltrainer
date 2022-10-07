@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) navigator.serviceWorker.register('/Vokabeltrainer/dev-sw.js?dev-sw', { scope: '/Vokabeltrainer/', type: 'classic' })
